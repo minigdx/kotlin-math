@@ -353,6 +353,12 @@ data class Mat4(
             z.x, z.y, z.z, z.w,
             w.x, w.y, w.z, w.w
     )
+    fun toArray() = arrayOf(
+            x.x, x.y, x.z, x.w,
+            y.x, y.y, y.z, y.w,
+            z.x, z.y, z.z, z.w,
+            w.x, w.y, w.z, w.w
+    )
 
     override fun toString(): String {
         return """
