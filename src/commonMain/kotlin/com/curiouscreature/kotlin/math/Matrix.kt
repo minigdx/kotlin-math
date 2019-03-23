@@ -520,23 +520,34 @@ fun rotation(axis: Float3, angle: Float): Mat4 {
 
 fun normal(m: Mat4) = scale(1.0f / Float3(length2(m.right), length2(m.up), length2(m.forward))) * m
 
-fun lookAt(eye: Float3, target: Float3, up: Float3 = Float3(z = 1.0f)): Mat4 {
-    return lookTowards(eye, target - eye, up)
+fun lookAt(eye: Float3, target: Float3, up: Float3): Mat4 = lookTowards(eye, target - eye, up)
+
+fun lookTowards(eye: Float3, direction: Float3, up: Float3): Mat4 {
+    val f = normalize(direction)
+    val r = normalize(cross(f, up))
+    val u = cross(r, f)
+    return Mat4(
+        Float4(r.x, u.x, -f.x, 0f),
+        Float4(r.y, u.y, -f.y, 0f),
+        Float4(r.z, u.z, -f.z, 0f),
+        Float4(
+            -dot(r, eye),
+            -dot(u, eye),
+            dot(f, eye),
+            1f
+        )
+    )
 }
 
-fun lookTowards(eye: Float3, forward: Float3, up: Float3 = Float3(z = 1.0f)): Mat4 {
-    val f = normalize(forward)
-    val r = normalize(f x up)
-    val u = normalize(r x f)
-    return Mat4(Float4(r), Float4(u), Float4(f), Float4(eye, 1.0f))
-}
+fun perspective(fov: Float, aspect: Float, near: Float, far: Float): Mat4 {
+    val tanHalfFov = tan(fov / 2f)
 
-fun perspective(fov: Float, ratio: Float, near: Float, far: Float): Mat4 {
-    val t = 1.0f / tan(radians(fov) * 0.5f)
-    val a = (far + near) / (far - near)
-    val b = (2.0f * far * near) / (far - near)
-    val c = t / ratio
-    return Mat4(Float4(x = c), Float4(y = t), Float4(z = a, w = 1.0f), Float4(z = -b))
+    return Mat4(
+            Float4(x = 1.0f / (aspect * tanHalfFov)),
+            Float4(y = 1.0f / tanHalfFov),
+            Float4(z = -(far + near) / (far - near), w = -1.0f),
+            Float4(z = -(2.0f * far * near) / (far - near))
+    )
 }
 
 fun projection(fov: Float, ratio: Float, near: Float, far: Float): Mat4 {
