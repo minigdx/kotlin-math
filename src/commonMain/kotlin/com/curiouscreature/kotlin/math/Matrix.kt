@@ -348,10 +348,10 @@ data class Mat4(
     }
 
     fun toFloatArray() = floatArrayOf(
-        x.x, y.x, z.x, w.x,
-        x.y, y.y, z.y, w.y,
-        x.z, y.z, z.z, w.z,
-        x.w, y.w, z.w, w.w
+            x.x, x.y, x.z, x.w,
+            y.x, y.y, y.z, y.w,
+            z.x, z.y, z.z, z.w,
+            w.x, w.y, w.z, w.w
     )
 
     override fun toString(): String {
@@ -547,4 +547,3 @@ fun ortho(l: Float, r: Float, b: Float, t: Float, n: Float, f: Float) = Mat4(
     Float4(z = -2.0f / (f - n)),
     Float4(-(r + l) / (r - l), -(t + b) / (t - b), -(f + n) / (f - n), 1.0f)
 )
-
