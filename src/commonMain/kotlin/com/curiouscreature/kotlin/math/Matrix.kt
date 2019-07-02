@@ -353,6 +353,7 @@ data class Mat4(
             z.x, z.y, z.z, z.w,
             w.x, w.y, w.z, w.w
     )
+
     fun toArray() = arrayOf(
             x.x, x.y, x.z, x.w,
             y.x, y.y, y.z, y.w,
@@ -511,10 +512,10 @@ fun rotation(axis: Float3, angle: Float): Mat4 {
     val d = 1.0f - c
 
     return Mat4.of(
-        x * x * d + c, x * y * d - z * s, x * z * d + y * s, 0.0f,
-        y * x * d + z * s, y * y * d + c, y * z * d - x * s, 0.0f,
-        z * x * d - y * s, z * y * d + x * s, z * z * d + c, 0.0f,
-        0.0f, 0.0f, 0.0f, 1.0f
+            x * x * d + c    , x * y * d - z * s, x * zs * d + y * s, 0.0f,
+            y * x * d + z * s, y * y * d + c    , y * z * d - x * s, 0.0f,
+            z * x * d - y * s, z * y * d + x * s, z * z * d + c    , 0.0f,
+            0.0f             , 0.0f             , 0.0f             , 1.0f
     )
 }
 
