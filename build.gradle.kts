@@ -1,10 +1,14 @@
 plugins {
-    kotlin("multiplatform") version "1.3.60"
+    kotlin("multiplatform") version "1.3.70-eap-42"
     id("maven-publish")
 }
 
+group = "com.github.dwursteisen.kotlin-math"
+version = "1.0.0-SNAPSHOT"
+
 repositories {
     jcenter()
+    maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
 }
 
 kotlin {
