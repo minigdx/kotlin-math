@@ -26,15 +26,28 @@ kotlin {
         this.compilations.getByName("main").kotlinOptions.jvmTarget = "1.8"
     }
 
+    mingwX64() {
+        binaries {
+            staticLib {}
+            sharedLib {}
+        }
+    }
+    linuxX64() {
+        binaries {
+            staticLib {}
+            sharedLib {}
+        }
+    }
+    ios() {
+        binaries {
+            staticLib {}
+            sharedLib {}
+        }
+    }
     macosX64() {
         binaries {
-            staticLib {
-
-            }
-
-            sharedLib {
-                
-            }
+            staticLib {}
+            sharedLib {}
         }
     }
 
