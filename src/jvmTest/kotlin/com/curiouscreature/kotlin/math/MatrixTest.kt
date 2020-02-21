@@ -17,6 +17,7 @@
 package com.curiouscreature.kotlin.math
 
 import org.junit.Assert
+import org.junit.Ignore
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -224,6 +225,7 @@ class MatrixTest {
         )
     }
 
+    @Ignore
     @Test
     fun `rotation axis angle`() {
         assertArrayEquals(
