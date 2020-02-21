@@ -28,8 +28,12 @@ kotlin {
 
     macosX64() {
         binaries {
-            executable {
+            staticLib {
 
+            }
+
+            sharedLib {
+                
             }
         }
     }
