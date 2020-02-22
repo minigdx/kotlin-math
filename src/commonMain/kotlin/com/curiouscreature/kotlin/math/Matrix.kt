@@ -28,7 +28,8 @@ enum class MatrixColumn {
 
 data class Mat2(
     var x: Float2 = Float2(x = 1.0f),
-    var y: Float2 = Float2(y = 1.0f)) {
+    var y: Float2 = Float2(y = 1.0f)
+) {
 
     constructor(m: Mat2) : this(m.x.copy(), m.y.copy())
 
@@ -118,7 +119,8 @@ data class Mat2(
 data class Mat3(
     var x: Float3 = Float3(x = 1.0f),
     var y: Float3 = Float3(y = 1.0f),
-    var z: Float3 = Float3(z = 1.0f)) {
+    var z: Float3 = Float3(z = 1.0f)
+) {
 
     constructor(m: Mat3) : this(m.x.copy(), m.y.copy(), m.z.copy())
 
@@ -217,7 +219,8 @@ data class Mat4(
     var x: Float4 = Float4(x = 1.0f),
     var y: Float4 = Float4(y = 1.0f),
     var z: Float4 = Float4(z = 1.0f),
-    var w: Float4 = Float4(w = 1.0f)) {
+    var w: Float4 = Float4(w = 1.0f)
+) {
 
     constructor(right: Float3, up: Float3, forward: Float3, position: Float3 = Float3()) :
         this(Float4(right), Float4(up), Float4(forward), Float4(position, 1.0f))
@@ -348,17 +351,17 @@ data class Mat4(
     }
 
     fun toFloatArray() = floatArrayOf(
-            x.x, x.y, x.z, x.w,
-            y.x, y.y, y.z, y.w,
-            z.x, z.y, z.z, z.w,
-            w.x, w.y, w.z, w.w
+        x.x, x.y, x.z, x.w,
+        y.x, y.y, y.z, y.w,
+        z.x, z.y, z.z, z.w,
+        w.x, w.y, w.z, w.w
     )
 
     fun toArray() = arrayOf(
-            x.x, x.y, x.z, x.w,
-            y.x, y.y, y.z, y.w,
-            z.x, z.y, z.z, z.w,
-            w.x, w.y, w.z, w.w
+        x.x, x.y, x.z, x.w,
+        y.x, y.y, y.z, y.w,
+        z.x, z.y, z.z, z.w,
+        w.x, w.y, w.z, w.w
     )
 
     override fun toString(): String {
@@ -512,10 +515,10 @@ fun rotation(axis: Float3, angle: Float): Mat4 {
     val d = 1.0f - c
 
     return Mat4.of(
-            x * x * d + c    , x * y * d - z * s, x * z * d + y * s, 0.0f,
-            y * x * d + z * s, y * y * d + c    , y * z * d - x * s, 0.0f,
-            z * x * d - y * s, z * y * d + x * s, z * z * d + c    , 0.0f,
-            0.0f             , 0.0f             , 0.0f             , 1.0f
+        x * x * d + c, x * y * d - z * s, x * z * d + y * s, 0.0f,
+        y * x * d + z * s, y * y * d + c, y * z * d - x * s, 0.0f,
+        z * x * d - y * s, z * y * d + x * s, z * z * d + c, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
     )
 }
 
@@ -544,10 +547,10 @@ fun perspective(fov: Float, aspect: Float, near: Float, far: Float): Mat4 {
     val tanHalfFov = tan(radians(fov) / 2f)
 
     return Mat4(
-            Float4(x = 1.0f / (aspect * tanHalfFov)),
-            Float4(y = 1.0f / tanHalfFov),
-            Float4(z = -(far + near) / (far - near), w = -1.0f),
-            Float4(z = -(2.0f * far * near) / (far - near))
+        Float4(x = 1.0f / (aspect * tanHalfFov)),
+        Float4(y = 1.0f / tanHalfFov),
+        Float4(z = -(far + near) / (far - near), w = -1.0f),
+        Float4(z = -(2.0f * far * near) / (far - near))
     )
 }
 

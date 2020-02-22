@@ -234,8 +234,12 @@ data class Float3(var x: Float = 0.0f, var y: Float = 0.0f, var z: Float = 0.0f)
     operator fun get(index1: VectorComponent, index2: VectorComponent): Float2 {
         return Float2(get(index1), get(index2))
     }
+
     operator fun get(
-            index1: VectorComponent, index2: VectorComponent, index3: VectorComponent): Float3 {
+        index1: VectorComponent,
+        index2: VectorComponent,
+        index3: VectorComponent
+    ): Float3 {
         return Float3(get(index1), get(index2), get(index3))
     }
 
@@ -284,10 +288,11 @@ data class Float3(var x: Float = 0.0f, var y: Float = 0.0f, var z: Float = 0.0f)
     }
 
     operator fun set(
-            index1: VectorComponent,
-            index2: VectorComponent,
-            index3: VectorComponent,
-            v: Float) {
+        index1: VectorComponent,
+        index2: VectorComponent,
+        index3: VectorComponent,
+        v: Float
+    ) {
         set(index1, v)
         set(index2, v)
         set(index3, v)
@@ -332,10 +337,12 @@ data class Float3(var x: Float = 0.0f, var y: Float = 0.0f, var z: Float = 0.0f)
 }
 
 data class Float4(
-        var x: Float = 0.0f,
-        var y: Float = 0.0f,
-        var z: Float = 0.0f,
-        var w: Float = 0.0f) {
+    var x: Float = 0.0f,
+    var y: Float = 0.0f,
+    var z: Float = 0.0f,
+    var w: Float = 0.0f
+) {
+
     constructor(v: Float) : this(v, v, v, v)
     constructor(v: Float2, z: Float = 0.0f, w: Float = 0.0f) : this(v.x, v.y, z, w)
     constructor(v: Float3, w: Float = 0.0f) : this(v.x, v.y, v.z, w)
@@ -459,17 +466,21 @@ data class Float4(
     operator fun get(index1: VectorComponent, index2: VectorComponent): Float2 {
         return Float2(get(index1), get(index2))
     }
+
     operator fun get(
-            index1: VectorComponent,
-            index2: VectorComponent,
-            index3: VectorComponent): Float3 {
+        index1: VectorComponent,
+        index2: VectorComponent,
+        index3: VectorComponent
+    ): Float3 {
         return Float3(get(index1), get(index2), get(index3))
     }
+
     operator fun get(
-            index1: VectorComponent,
-            index2: VectorComponent,
-            index3: VectorComponent,
-            index4: VectorComponent): Float4 {
+        index1: VectorComponent,
+        index2: VectorComponent,
+        index3: VectorComponent,
+        index4: VectorComponent
+    ): Float4 {
         return Float4(get(index1), get(index2), get(index3), get(index4))
     }
 
@@ -485,6 +496,7 @@ data class Float4(
     operator fun get(index1: Int, index2: Int, index3: Int): Float3 {
         return Float3(get(index1), get(index2), get(index3))
     }
+
     operator fun get(index1: Int, index2: Int, index3: Int, index4: Int): Float4 {
         return Float4(get(index1), get(index2), get(index3), get(index4))
     }
@@ -529,15 +541,24 @@ data class Float4(
         set(index2, v)
     }
 
-    operator fun set(index1: VectorComponent, index2: VectorComponent, index3: VectorComponent,
-            v: Float) {
+    operator fun set(
+        index1: VectorComponent,
+        index2: VectorComponent,
+        index3: VectorComponent,
+        v: Float
+    ) {
         set(index1, v)
         set(index2, v)
         set(index3, v)
     }
 
-    operator fun set(index1: VectorComponent, index2: VectorComponent,
-            index3: VectorComponent, index4: VectorComponent, v: Float) {
+    operator fun set(
+        index1: VectorComponent,
+        index2: VectorComponent,
+        index3: VectorComponent,
+        index4: VectorComponent,
+        v: Float
+    ) {
         set(index1, v)
         set(index2, v)
         set(index3, v)
@@ -614,26 +635,26 @@ fun refract(i: Float2, n: Float2, eta: Float): Float2 {
 
 inline fun clamp(v: Float2, min: Float, max: Float): Float2 {
     return Float2(
-            clamp(v.x, min, max),
-            clamp(v.y, min, max))
+        clamp(v.x, min, max),
+        clamp(v.y, min, max))
 }
 
 inline fun clamp(v: Float2, min: Float2, max: Float2): Float2 {
     return Float2(
-            clamp(v.x, min.x, max.x),
-            clamp(v.y, min.y, max.y))
+        clamp(v.x, min.x, max.x),
+        clamp(v.y, min.y, max.y))
 }
 
 inline fun mix(a: Float2, b: Float2, x: Float): Float2 {
     return Float2(
-            mix(a.x, b.x, x),
-            mix(a.y, b.y, x))
+        mix(a.x, b.x, x),
+        mix(a.y, b.y, x))
 }
 
 inline fun mix(a: Float2, b: Float2, x: Float2): Float2 {
     return Float2(
-            mix(a.x, b.x, x.x),
-            mix(a.y, b.y, x.y))
+        mix(a.x, b.x, x.x),
+        mix(a.y, b.y, x.y))
 }
 
 inline fun min(v: Float2) = min(v.x, v.y)
@@ -685,9 +706,11 @@ inline fun dot(a: Float3, b: Float3) = a.x * b.x + a.y * b.y + a.z * b.z
 inline fun cross(a: Float3, b: Float3): Float3 {
     return Float3(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x)
 }
+
 inline infix fun Float3.x(v: Float3): Float3 {
     return Float3(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x)
 }
+
 fun normalize(v: Float3): Float3 {
     val l = 1.0f / length(v)
     return Float3(v.x * l, v.y * l, v.z * l)
@@ -702,30 +725,30 @@ fun refract(i: Float3, n: Float3, eta: Float): Float3 {
 
 inline fun clamp(v: Float3, min: Float, max: Float): Float3 {
     return Float3(
-            clamp(v.x, min, max),
-            clamp(v.y, min, max),
-            clamp(v.z, min, max))
+        clamp(v.x, min, max),
+        clamp(v.y, min, max),
+        clamp(v.z, min, max))
 }
 
 inline fun clamp(v: Float3, min: Float3, max: Float3): Float3 {
     return Float3(
-            clamp(v.x, min.x, max.x),
-            clamp(v.y, min.y, max.y),
-            clamp(v.z, min.z, max.z))
+        clamp(v.x, min.x, max.x),
+        clamp(v.y, min.y, max.y),
+        clamp(v.z, min.z, max.z))
 }
 
 inline fun mix(a: Float3, b: Float3, x: Float): Float3 {
     return Float3(
-            mix(a.x, b.x, x),
-            mix(a.y, b.y, x),
-            mix(a.z, b.z, x))
+        mix(a.x, b.x, x),
+        mix(a.y, b.y, x),
+        mix(a.z, b.z, x))
 }
 
 inline fun mix(a: Float3, b: Float3, x: Float3): Float3 {
     return Float3(
-            mix(a.x, b.x, x.x),
-            mix(a.y, b.y, x.y),
-            mix(a.z, b.z, x.z))
+        mix(a.x, b.x, x.x),
+        mix(a.y, b.y, x.y),
+        mix(a.z, b.z, x.z))
 }
 
 inline fun min(v: Float3) = min(v.x, min(v.y, v.z))
@@ -781,40 +804,41 @@ fun normalize(v: Float4): Float4 {
 
 inline fun clamp(v: Float4, min: Float, max: Float): Float4 {
     return Float4(
-            clamp(v.x, min, max),
-            clamp(v.y, min, max),
-            clamp(v.z, min, max),
-            clamp(v.w, min, max))
+        clamp(v.x, min, max),
+        clamp(v.y, min, max),
+        clamp(v.z, min, max),
+        clamp(v.w, min, max))
 }
 
 inline fun clamp(v: Float4, min: Float4, max: Float4): Float4 {
     return Float4(
-            clamp(v.x, min.x, max.x),
-            clamp(v.y, min.y, max.y),
-            clamp(v.z, min.z, max.z),
-            clamp(v.w, min.z, max.w))
+        clamp(v.x, min.x, max.x),
+        clamp(v.y, min.y, max.y),
+        clamp(v.z, min.z, max.z),
+        clamp(v.w, min.z, max.w))
 }
 
 inline fun mix(a: Float4, b: Float4, x: Float): Float4 {
     return Float4(
-            mix(a.x, b.x, x),
-            mix(a.y, b.y, x),
-            mix(a.z, b.z, x),
-            mix(a.w, b.w, x))
+        mix(a.x, b.x, x),
+        mix(a.y, b.y, x),
+        mix(a.z, b.z, x),
+        mix(a.w, b.w, x))
 }
 
 inline fun mix(a: Float4, b: Float4, x: Float4): Float4 {
     return Float4(
-            mix(a.x, b.x, x.x),
-            mix(a.y, b.y, x.y),
-            mix(a.z, b.z, x.z),
-            mix(a.w, b.w, x.w))
+        mix(a.x, b.x, x.x),
+        mix(a.y, b.y, x.y),
+        mix(a.z, b.z, x.z),
+        mix(a.w, b.w, x.w))
 }
 
 inline fun min(v: Float4) = min(v.x, min(v.y, min(v.z, v.w)))
 inline fun min(a: Float4, b: Float4): Float4 {
     return Float4(min(a.x, b.x), min(a.y, b.y), min(a.z, b.z), min(a.w, b.w))
 }
+
 inline fun max(v: Float4) = max(v.x, max(v.y, max(v.z, v.w)))
 inline fun max(a: Float4, b: Float4): Float4 {
     return Float4(max(a.x, b.x), max(a.y, b.y), max(a.z, b.z), max(a.w, b.w))
@@ -1025,8 +1049,12 @@ data class Bool3(var x: Boolean = false, var y: Boolean = false, var z: Boolean 
     operator fun get(index1: VectorComponent, index2: VectorComponent): Bool2 {
         return Bool2(get(index1), get(index2))
     }
+
     operator fun get(
-            index1: VectorComponent, index2: VectorComponent, index3: VectorComponent): Bool3 {
+        index1: VectorComponent,
+        index2: VectorComponent,
+        index3: VectorComponent
+    ): Bool3 {
         return Bool3(get(index1), get(index2), get(index3))
     }
 
@@ -1075,10 +1103,11 @@ data class Bool3(var x: Boolean = false, var y: Boolean = false, var z: Boolean 
     }
 
     operator fun set(
-            index1: VectorComponent,
-            index2: VectorComponent,
-            index3: VectorComponent,
-            v: Boolean) {
+        index1: VectorComponent,
+        index2: VectorComponent,
+        index3: VectorComponent,
+        v: Boolean
+    ) {
         set(index1, v)
         set(index2, v)
         set(index3, v)
@@ -1086,10 +1115,12 @@ data class Bool3(var x: Boolean = false, var y: Boolean = false, var z: Boolean 
 }
 
 data class Bool4(
-        var x: Boolean = false,
-        var y: Boolean = false,
-        var z: Boolean = false,
-        var w: Boolean = false) {
+    var x: Boolean = false,
+    var y: Boolean = false,
+    var z: Boolean = false,
+    var w: Boolean = false
+) {
+
     constructor(v: Bool2, z: Boolean = false, w: Boolean = false) : this(v.x, v.y, z, w)
     constructor(v: Bool3, w: Boolean = false) : this(v.x, v.y, v.z, w)
     constructor(v: Bool4) : this(v.x, v.y, v.z, v.w)
@@ -1212,17 +1243,21 @@ data class Bool4(
     operator fun get(index1: VectorComponent, index2: VectorComponent): Bool2 {
         return Bool2(get(index1), get(index2))
     }
+
     operator fun get(
-            index1: VectorComponent,
-            index2: VectorComponent,
-            index3: VectorComponent): Bool3 {
+        index1: VectorComponent,
+        index2: VectorComponent,
+        index3: VectorComponent
+    ): Bool3 {
         return Bool3(get(index1), get(index2), get(index3))
     }
+
     operator fun get(
-            index1: VectorComponent,
-            index2: VectorComponent,
-            index3: VectorComponent,
-            index4: VectorComponent): Bool4 {
+        index1: VectorComponent,
+        index2: VectorComponent,
+        index3: VectorComponent,
+        index4: VectorComponent
+    ): Bool4 {
         return Bool4(get(index1), get(index2), get(index3), get(index4))
     }
 
@@ -1238,6 +1273,7 @@ data class Bool4(
     operator fun get(index1: Int, index2: Int, index3: Int): Bool3 {
         return Bool3(get(index1), get(index2), get(index3))
     }
+
     operator fun get(index1: Int, index2: Int, index3: Int, index4: Int): Bool4 {
         return Bool4(get(index1), get(index2), get(index3), get(index4))
     }
@@ -1282,15 +1318,24 @@ data class Bool4(
         set(index2, v)
     }
 
-    operator fun set(index1: VectorComponent, index2: VectorComponent, index3: VectorComponent,
-            v: Boolean) {
+    operator fun set(
+        index1: VectorComponent,
+        index2: VectorComponent,
+        index3: VectorComponent,
+        v: Boolean
+    ) {
         set(index1, v)
         set(index2, v)
         set(index3, v)
     }
 
-    operator fun set(index1: VectorComponent, index2: VectorComponent,
-            index3: VectorComponent, index4: VectorComponent, v: Boolean) {
+    operator fun set(
+        index1: VectorComponent,
+        index2: VectorComponent,
+        index3: VectorComponent,
+        index4: VectorComponent,
+        v: Boolean
+    ) {
         set(index1, v)
         set(index2, v)
         set(index3, v)

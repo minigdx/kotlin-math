@@ -82,9 +82,7 @@ kotlin {
             }
         }
         macosX64().compilations["main"].defaultSourceSet {
-            dependencies {
-
-            }
+            dependencies { }
         }
     }
 }
