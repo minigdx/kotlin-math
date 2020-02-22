@@ -17,7 +17,6 @@
 package com.curiouscreature.kotlin.math
 
 import org.junit.Assert
-import org.junit.Ignore
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -225,7 +224,6 @@ class MatrixTest {
         )
     }
 
-    @Ignore
     @Test
     fun `rotation axis angle`() {
         assertArrayEquals(
@@ -256,15 +254,15 @@ class MatrixTest {
     fun lookAt() {
         assertArrayEquals(
                 Mat4(
-                        Float4(0.53606f, -0.7862f, 0.30734f, 0.0f),
-                        Float4(0.28377f, 0.51073f, 0.81155f, 0.0f),
-                        Float4(0.79504f, 0.34783f, -0.4969f, 0.0f),
-                        Float4(1.0f, 2.0f, 3.0f, 1.0f)
+                        Float4(0.40824828f, -0.7071067f, -0.5773502588272095f, 0.0f),
+                        Float4( -0.8164966106414795f, 0f, -0.5773502588272095f, 0.0f),
+                        Float4(0.40824830532073975f, 0.7071067690849304f, -0.5773502588272095f, 0.0f),
+                        Float4(-0f, -1.4142135381698608f, 3.464101552963257f, 1.0f)
                 ).toFloatArray(),
                 lookAt(
                         eye = Float3(1f, 2f, 3f),
-                        target = Float3(9f, 5.5f, -2f),
-                        up = Float3(3f, 4f, 5f)
+                        target = Float3(4f, 5f, 6f),
+                        up = Float3(7f, 8f, 9f)
                 ).toFloatArray()
         )
     }
@@ -273,14 +271,14 @@ class MatrixTest {
     fun lookTowards() {
         assertArrayEquals(
                 Mat4(
-                        Float4(-0.6549f, -0.3475f, 0.67100f, 0.0f),
-                        Float4(0.10792f, 0.83584f, 0.53825f, 0.0f),
-                        Float4(0.74791f, -0.4249f, 0.50994f, 0.0f),
-                        Float4(1.0f, 2.0f, 3.0f, 1.0f)
+                        Float4(-0.6549f, 0.10792291f, -0.7479144f, 0.0f),
+                        Float4(-0.34753147f, 0.83584f, 0.42495134f, 0.0f),
+                        Float4(0.6710031f, 0.5382513f, -0.50994164f, 0.0f),
+                        Float4(-0.6629832f, -3.3943686f, 1.4278367f, 1.0f)
                 ).toFloatArray(),
                 lookTowards(
                         eye = Float3(1f, 2f, 3f),
-                        forward = Float3(4.4f, -2.5f, 3f),
+                        direction = Float3(4.4f, -2.5f, 3f),
                         up = Float3(3f, 4f, 5f)
                 ).toFloatArray()
         )
@@ -290,17 +288,35 @@ class MatrixTest {
     fun perspective() {
         assertArrayEquals(
                 Mat4(
-                        Float4(57.2943f, 0.0f, 0.0f, 0.0f),
-                        Float4(0.0f, 114.5886f, 0.0f, 0.0f),
-                        Float4(0.0f, 0.0f, -7.0f, 1.0f),
+                        Float4(57.294323f, 0.0f, 0.0f, 0.0f),
+                        Float4(0.0f, 114.588646f, 0.0f, 0.0f),
+                        Float4(0.0f, 0.0f, 7.0f, -1.0f),
                         Float4(0.0f, 0.0f, 24.0f, 0.0f)
                 ).toFloatArray(),
                 perspective(
                         fov = 1f,
-                        ratio = 2f,
+                        aspect = 2f,
                         far = 3f,
                         near = 4f
                 ).toFloatArray()
+        )
+    }
+
+    @Test
+    fun projection() {
+        assertArrayEquals(
+            Mat4(
+                Float4(57.294323f, 0.0f, 0.0f, 0.0f),
+                Float4(0.0f, 114.5886f, 0.0f, 0.0f),
+                Float4(0.0f, 0.0f, 3.0f, -1.0f),
+                Float4(0.0f, 0.0f, 12.0f, 0.0f)
+            ).toFloatArray(),
+            projection(
+                fov = 1f,
+                ratio = 2f,
+                far = 3f,
+                near = 4f
+            ).toFloatArray()
         )
     }
 
