@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform") version "1.3.70-eap-42"
     id("maven-publish")
+    id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
 }
 
 group = "com.github.dwursteisen.kotlin-math"
