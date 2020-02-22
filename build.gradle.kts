@@ -12,6 +12,24 @@ repositories {
     maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
 }
 
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/dwursteisen/mini-gdx")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("default") {
+            from(components["kotlin"])
+        }
+    }
+}
+
 kotlin {
     /* Targets configuration omitted.
     *  To find out how to configure the targets, please follow the link:
