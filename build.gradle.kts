@@ -83,24 +83,26 @@ kotlin {
             }
         }
 
-        js().compilations["main"].defaultSourceSet {
+        val jsMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-js"))
             }
         }
 
-        jvm().compilations["main"].defaultSourceSet {
+        val jvmMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
             }
         }
-        jvm().compilations["test"].defaultSourceSet {
+
+        val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.12")
             }
         }
-        macosX64().compilations["main"].defaultSourceSet {
+
+        val macosX64Main by getting {
             dependencies { }
         }
     }
