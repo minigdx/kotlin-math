@@ -62,3 +62,22 @@ fun normalize(quaternion: Quaternion): Quaternion {
     val mag = sqrt(w * w + x * x + y * y + z * z)
     return Quaternion(x / mag, y / mag, z / mag, w / mag)
 }
+
+fun interpolate(a: Quaternion, b: Quaternion, blend: Float): Quaternion {
+    val dot = a.w * b.w + a.x * b.x + a.y * b.y + a.z * b.z
+    val blendI = 1f - blend
+    val result = if (dot < 0) {
+        val w = blendI * a.w + blend * -b.w
+        val x = blendI * a.x + blend * -b.x
+        val y = blendI * a.y + blend * -b.y
+        val z = blendI * a.z + blend * -b.z
+        Quaternion(x, y, z, w)
+    } else {
+        val w = blendI * a.w + blend * b.w
+        val x = blendI * a.x + blend * b.x
+        val y = blendI * a.y + blend * b.y
+        val z = blendI * a.z + blend * b.z
+        Quaternion(x, y, z, w)
+    }
+    return normalize(result)
+}

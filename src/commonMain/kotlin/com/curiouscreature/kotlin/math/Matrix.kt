@@ -239,6 +239,68 @@ data class Mat4(
         }
 
         fun identity() = Mat4()
+
+        fun from(quaternion: Quaternion): Mat4 = quaternion.let {
+            val xx: Float = it.x * it.x
+            val xy: Float = it.x * it.y
+            val xz: Float = it.x * it.z
+            val xw: Float = it.x * it.w
+            val yy: Float = it.y * it.y
+            val yz: Float = it.y * it.z
+            val yw: Float = it.y * it.w
+            val zz: Float = it.z * it.z
+            val zw: Float = it.z * it.w
+            val mx = Float4(
+                1f - 2f * (yy + zz),
+                2f * (xy - zw),
+                2f * (xz + yw),
+                0f
+            )
+            val my = Float4(
+                2f * (xy + zw),
+                1f - 2f * (xx + zz),
+                2f * (yz - xw),
+                0f
+            )
+            val mz = Float4(
+                2f * (xz - yw),
+                2f * (yz + xw),
+                1f - 2f * (xx + yy),
+                0f
+            )
+            val mw = Float4(
+                0f,
+                0f,
+                0f,
+                1f
+            )
+            return Mat4(
+                x = mx,
+                y = my,
+                z = mz,
+                w = mw
+            )
+            /*
+            // Set matrix from quaternion
+            matrix.get(Matrix4.M00) = 1 - 2 * (yy + zz)
+            matrix.get(Matrix4.M01) = 2 * (xy - zw)
+            matrix.get(Matrix4.M02) = 2 * (xz + yw)
+            matrix.get(Matrix4.M03) = 0
+            matrix.get(Matrix4.M10) = 2 * (xy + zw)
+            matrix.get(Matrix4.M11) = 1 - 2 * (xx + zz)
+            matrix.get(Matrix4.M12) = 2 * (yz - xw)
+            matrix.get(Matrix4.M13) = 0
+            matrix.get(Matrix4.M20) = 2 * (xz - yw)
+            matrix.get(Matrix4.M21) = 2 * (yz + xw)
+            matrix.get(Matrix4.M22) = 1 - 2 * (xx + yy)
+            matrix.get(Matrix4.M23) = 0
+            matrix.get(Matrix4.M30) = 0
+            matrix.get(Matrix4.M31) = 0
+            matrix.get(Matrix4.M32) = 0
+            matrix.get(Matrix4.M33) = 1
+
+             */
+        }
     }
 
     inline var right: Float3

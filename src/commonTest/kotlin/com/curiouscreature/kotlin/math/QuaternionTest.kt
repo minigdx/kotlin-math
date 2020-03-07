@@ -1,9 +1,7 @@
 package com.curiouscreature.kotlin.math
 
-import kotlin.math.abs
 import kotlin.test.Test
 import kotlin.test.assertTrue
-import kotlin.test.fail
 
 class QuaternionTest {
 
@@ -47,17 +45,6 @@ class QuaternionTest {
             assertEquals(expected.y, actual.y)
             assertEquals(expected.z, actual.z)
             assertEquals(expected.w, actual.w)
-        }
-
-        fun assertEquals(
-            expected: Float,
-            actual: Float,
-            delta: Float = 0.000001f,
-            message: String = "$expected != $actual (𝝙 $delta)"
-        ) {
-            if (abs(expected - actual) > delta) {
-                fail(message)
-            }
         }
     }
 }

@@ -16,8 +16,9 @@
 
 package com.curiouscreature.kotlin.math
 
+import kotlin.test.Test
 import kotlin.test.assertEquals
-import org.junit.Test
+import kotlin.test.assertFails
 
 class MatrixTest {
     @Test
@@ -32,9 +33,11 @@ class MatrixTest {
         )
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test
     fun `Mat3 of fails if less than 9 arguments`() {
-        Mat3.of(*8.floatArray())
+        assertFails {
+            Mat3.of(*8.floatArray())
+        }
     }
 
     @Test
@@ -55,9 +58,11 @@ class MatrixTest {
         )
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test
     fun `Mat4 of fails if less than 16 arguments`() {
-        Mat4.of(*15.floatArray())
+        assertFails {
+            Mat4.of(*15.floatArray())
+        }
     }
 
     @Test
@@ -337,6 +342,14 @@ class MatrixTest {
                 f = 6f
             ).toFloatArray()
         )
+    }
+
+    @Test
+    fun fromQuaternion() {
+        val fromQuaternion = Mat4.from(Quaternion(-0.5f, 0f, -0.5f, 0.70710677f))
+        val fromRotation = rotation(normalize(Float3(1f, 0f, 1f)), 90f)
+
+        assertArrayEquals(fromQuaternion.toFloatArray(), fromRotation.toFloatArray())
     }
 
     companion object {
