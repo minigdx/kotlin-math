@@ -7,6 +7,10 @@ plugins {
 group = "com.github.dwursteisen.kotlin-math"
 version = project.properties["version"] ?: "1.0-SNAPSHOT"
 
+if (version == "unspecified") {
+    version = "1.0-SNAPSHOT"
+}
+
 repositories {
     jcenter()
     maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
@@ -89,6 +93,12 @@ kotlin {
             }
         }
 
+        val jsTest by getting {
+            dependencies {
+                implementation(kotlin("test-js"))
+            }
+        }
+
         val jvmMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
@@ -98,7 +108,11 @@ kotlin {
         val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
-                implementation("junit:junit:4.12")
+
+                implementation("com.badlogicgames.gdx:gdx-backend-lwjgl:1.9.9")
+                implementation("com.badlogicgames.gdx:gdx-platform:1.9.9:natives-desktop")
+
+                implementation("org.assertj:assertj-core:3.11.1")
             }
         }
 

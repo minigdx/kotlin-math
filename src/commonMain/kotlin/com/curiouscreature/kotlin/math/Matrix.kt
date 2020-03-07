@@ -504,6 +504,11 @@ fun rotation(d: Float3): Mat4 {
     )
 }
 
+/**
+ * Create a rotation matrix.
+ *
+ * The axis vector SHOULD be normalized.
+ */
 fun rotation(axis: Float3, angle: Float): Mat4 {
     val x = axis.x
     val y = axis.y
@@ -514,6 +519,7 @@ fun rotation(axis: Float3, angle: Float): Mat4 {
     val s = sin(r)
     val d = 1.0f - c
 
+    // https://fr.wikipedia.org/wiki/Matrice_de_rotation#Axe_de_rotation
     return Mat4.of(
         x * x * d + c, x * y * d - z * s, x * z * d + y * s, 0.0f,
         y * x * d + z * s, y * y * d + c, y * z * d - x * s, 0.0f,

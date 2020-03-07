@@ -17,7 +17,6 @@
 package com.curiouscreature.kotlin.math
 
 import kotlin.test.assertEquals
-import org.junit.Assert
 import org.junit.Test
 
 class MatrixTest {
@@ -352,9 +351,6 @@ class MatrixTest {
             Float4(3f, 7f, 11f, 15f),
             Float4(4f, 8f, 12f, 16f)
         )
-
-        private fun assertArrayEquals(expected: FloatArray, actual: FloatArray, delta: Float = 0.0001f) =
-            Assert.assertArrayEquals(expected, actual, delta)
 
         /**
          * @return a FloatArray containing n floats 1f,2f,...,n (float) where n
