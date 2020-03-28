@@ -24,6 +24,21 @@ class LibGDXQuaternionTest {
         assertEquals(expected, actual)
     }
 
+    @Test
+    fun interpolate() {
+        val fromLibgdx = Quat(0f, 0f, 0f, 1f)
+        val toLibgdx = Quat(Vector3(1f, 0f, 0.5f), 25f)
+
+        val from = Quaternion(0f, 0f, 0f, 1f)
+        val matrix = Mat4.identity() * rotation(normalize(Float3(1f, 0f, 0.5f)), 25f)
+        val to = Quaternion.from(matrix)
+
+        val result = interpolate(from, to, 0.5f)
+        val resultLibgdx = fromLibgdx.slerp(toLibgdx, 0.5f)
+
+        assertEquals(resultLibgdx, result)
+    }
+
     fun assertEquals(expected: Quat, actual: Quaternion) {
         assertArrayEquals(
             floatArrayOf(abs(expected.x), abs(expected.y), abs(expected.z), abs(expected.w)),

@@ -1342,3 +1342,11 @@ data class Bool4(
         set(index4, v)
     }
 }
+
+fun interpolate(a: Float3, b: Float3, blend: Float): Float3 {
+    val x = a.x + blend * (b.x - a.x)
+    val y = a.y + blend * (b.y - a.x)
+    val z = a.z + blend * (b.z - a.x)
+
+    return Float3(x, y, z)
+}

@@ -238,6 +238,16 @@ data class Mat4(
             )
         }
 
+        fun fromColumnMajor(vararg a: Float): Mat4 {
+            require(a.size >= 16)
+            return Mat4(
+                Float4(a[0], a[1], a[2], a[3]),
+                Float4(a[4], a[5], a[6], a[7]),
+                Float4(a[8], a[9], a[10], a[11]),
+                Float4(a[12], a[13], a[14], a[15])
+            )
+        }
+
         fun identity() = Mat4()
 
         fun from(quaternion: Quaternion): Mat4 = quaternion.let {
@@ -428,10 +438,10 @@ data class Mat4(
 
     override fun toString(): String {
         return """
-            |${x.x} ${y.x} ${z.x} ${w.x}|
-            |${x.y} ${y.y} ${z.y} ${w.y}|
-            |${x.z} ${y.z} ${z.z} ${w.z}|
-            |${x.w} ${y.w} ${z.w} ${w.w}|
+            [${x.x}|${x.y}|${x.z}|${x.w}]
+            [${y.x}|${y.y}|${y.z}|${y.w}]
+            [${z.x}|${z.y}|${z.z}|${z.w}]
+            [${w.x}|${w.y}|${w.z}|${w.w}]
             """.trimIndent()
     }
 }

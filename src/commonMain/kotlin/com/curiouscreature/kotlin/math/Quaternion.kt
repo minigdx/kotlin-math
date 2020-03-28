@@ -66,7 +66,7 @@ fun normalize(quaternion: Quaternion): Quaternion {
 fun interpolate(a: Quaternion, b: Quaternion, blend: Float): Quaternion {
     val dot = a.w * b.w + a.x * b.x + a.y * b.y + a.z * b.z
     val blendI = 1f - blend
-    val result = if (dot < 0) {
+    return if (dot < 0) {
         val w = blendI * a.w + blend * -b.w
         val x = blendI * a.x + blend * -b.x
         val y = blendI * a.y + blend * -b.y
@@ -79,5 +79,4 @@ fun interpolate(a: Quaternion, b: Quaternion, blend: Float): Quaternion {
         val z = blendI * a.z + blend * b.z
         Quaternion(x, y, z, w)
     }
-    return normalize(result)
 }
