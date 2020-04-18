@@ -21,6 +21,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFails
 
 class MatrixTest {
+
     @Test
     fun `Mat3 identity`() {
         assertEquals(

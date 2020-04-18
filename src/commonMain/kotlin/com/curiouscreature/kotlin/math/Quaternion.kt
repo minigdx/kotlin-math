@@ -1,5 +1,9 @@
 package com.curiouscreature.kotlin.math
 
+import kotlin.math.abs
+import kotlin.math.asin
+import kotlin.math.atan2
+import kotlin.math.sign
 import kotlin.math.sqrt
 
 data class Quaternion(val x: Float, val y: Float, val z: Float, val w: Float) {
@@ -8,6 +12,28 @@ data class Quaternion(val x: Float, val y: Float, val z: Float, val w: Float) {
 
     fun toFloatArray(): FloatArray {
         return floatArrayOf(x, y, z, w)
+    }
+
+    // https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles#Source_Code_2
+    fun toEulerAngles(): Float3 {
+        // roll (x-axis rotation)
+        val sinrCosp = 2f * (w * x + y * z)
+        val cosrCosp = 1f - 2f * (x * x + y * y)
+        val roll = atan2(sinrCosp, cosrCosp)
+
+        // pitch (y-axis rotation)
+        val sinp = 2f * (w * y - z * x)
+        val pitch = if (abs(sinp) >= 1)
+            PI / 2f * sign(sinp) // use 90 degrees if out of range
+        else
+            asin(sinp)
+
+        // yaw (z-axis rotation)
+        val sinyCosp = 2f * (w * z + x * y)
+        val cosyCosp = 1f - 2f * (y * y + z * z)
+        val yaw = atan2(sinyCosp, cosyCosp);
+
+        return Float3(roll, pitch, yaw);
     }
 
     override fun toString(): String {
