@@ -31,9 +31,9 @@ data class Quaternion(val x: Float, val y: Float, val z: Float, val w: Float) {
         // yaw (z-axis rotation)
         val sinyCosp = 2f * (w * z + x * y)
         val cosyCosp = 1f - 2f * (y * y + z * z)
-        val yaw = atan2(sinyCosp, cosyCosp);
+        val yaw = atan2(sinyCosp, cosyCosp)
 
-        return Float3(roll, pitch, yaw);
+        return Float3(roll, pitch, yaw)
     }
 
     override fun toString(): String {

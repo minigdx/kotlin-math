@@ -3,8 +3,8 @@ package com.curiouscreature.kotlin.math
 import com.badlogic.gdx.math.Matrix4
 import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.utils.GdxNativesLoader
-import org.assertj.core.api.Assertions
 import kotlin.test.Test
+import org.assertj.core.api.Assertions
 
 /**
  * Test the Mat4 implementation against the libGDX Matrix4 implementation.
@@ -110,11 +110,11 @@ class LibGDXMatrixTest {
         val result = translation(Float3(1f, 0f, 0f)) * translation(Float3(0f, 2f, 0f))
         Assertions.assertThat(transpose(result).toString()).isEqualToIgnoringNewLines(expected.toString())
     }
+}
 
-    fun assertEquals(expected: Matrix4, actual: Mat4) {
-        val kotlinMath = actual.toFloatArray()
-        val libgdx = expected.`val`
+fun assertEquals(expected: Matrix4, actual: Mat4) {
+    val kotlinMath = actual.toFloatArray()
+    val libgdx = expected.`val`
 
-        assertArrayEquals(kotlinMath, libgdx)
-    }
+    assertArrayEquals(kotlinMath, libgdx)
 }
