@@ -347,7 +347,7 @@ class MatrixTest {
 
     @Test
     fun fromQuaternion() {
-        val fromQuaternion = Mat4.from(Quaternion(-0.5f, 0f, -0.5f, 0.70710677f))
+        val fromQuaternion = Mat4.from(Quaternion(0.5f, 0f, 0.5f, 0.70710677f))
         val fromRotation = rotation(normalize(Float3(1f, 0f, 1f)), 90f)
 
         assertArrayEquals(fromQuaternion.asGLArray(), fromRotation.asGLArray())

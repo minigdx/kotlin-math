@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.Matrix4
 import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.utils.GdxNativesLoader
 import kotlin.test.Test
-import org.assertj.core.api.Assertions
 
 /**
  * Test the Mat4 implementation against the libGDX Matrix4 implementation.

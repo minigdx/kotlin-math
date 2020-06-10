@@ -284,12 +284,12 @@ data class Mat4(
                 0f,
                 1f
             )
-            return Mat4(
+            return transpose(Mat4(
                 x = mx,
                 y = my,
                 z = mz,
                 w = mw
-            )
+            ))
         }
     }
 
