@@ -23,7 +23,7 @@ import kotlin.test.assertFails
 class MatrixTest {
 
     @Test
-    fun `Mat3 identity`() {
+    fun Mat3_identity() {
         assertEquals(
             Mat3(
                 Float3(1f, 0f, 0f),
@@ -35,19 +35,19 @@ class MatrixTest {
     }
 
     @Test
-    fun `Mat3 of fails if less than 9 arguments`() {
+    fun Mat3_identity_Constructor_fail() {
         assertFails {
-            Mat3.of(*8.floatArray())
+            Mat3.fromRowMajor(*8.floatArray())
         }
     }
 
     @Test
-    fun `Mat3 of`() {
-        assertEquals(MAT_3, Mat3.of(*9.floatArray()))
+    fun Mat3_ofRowMajor() {
+        assertEquals(MAT_3, Mat3.fromRowMajor(*9.floatArray()))
     }
 
     @Test
-    fun `Mat4 identity`() {
+    fun Mat4_identity() {
         assertEquals(
             Mat4(
                 Float4(1f, 0f, 0f, 0f),
@@ -60,19 +60,19 @@ class MatrixTest {
     }
 
     @Test
-    fun `Mat4 of fails if less than 16 arguments`() {
+    fun Mat4_constructor_fails() {
         assertFails {
-            Mat4.of(*15.floatArray())
+            Mat4.fromRowMajor(*15.floatArray())
         }
     }
 
     @Test
-    fun `Mat4 of`() {
-        assertEquals(MAT_4, Mat4.of(*16.floatArray()))
+    fun Mat_fromRowMajor() {
+        assertEquals(MAT_4, Mat4.fromRowMajor(*16.floatArray()))
     }
 
     @Test
-    fun `transpose Mat3`() {
+    fun Mat3_transpose() {
         assertEquals(
             Mat3(
                 Float3(1f, 2f, 3f),
@@ -84,12 +84,12 @@ class MatrixTest {
     }
 
     @Test
-    fun `transpose Mat3 of identity is identity`() {
+    fun Mat3_transpose_identity_is_identity() {
         assertEquals(transpose(Mat3.identity()), Mat3.identity())
     }
 
     @Test
-    fun `inverse Mat3`() {
+    fun Mat_inverse() {
         assertEquals(
             Mat3(
                 Float3(0f, 1f, 0f),
@@ -105,17 +105,17 @@ class MatrixTest {
     }
 
     @Test
-    fun `inverse Mat3 of identity is identity`() {
+    fun Mat3_inverse_identity_is_identity() {
         assertEquals(Mat3.identity(), inverse(Mat3.identity()))
     }
 
     @Test
-    fun `scale Float3`() {
+    fun scale_Float3() {
         assertEquals(Mat4.identity(), scale(Float3(1f, 1f, 1f)))
     }
 
     @Test
-    fun `scale Mat4`() {
+    fun Mat4_scale() {
         assertEquals(
             Mat4(
                 Float4(2f, 0f, 0f, 0f),
@@ -133,7 +133,7 @@ class MatrixTest {
     }
 
     @Test
-    fun `translation Float3`() {
+    fun Mat4_translation_Float3() {
         assertEquals(
             Mat4(
                 Float4(1f, 0f, 0f, 0f),
@@ -146,7 +146,7 @@ class MatrixTest {
     }
 
     @Test
-    fun `translation Mat4`() {
+    fun Mat4_translation() {
         assertEquals(
             Mat4(
                 Float4(1f, 0f, 0f, 0f),
@@ -159,12 +159,12 @@ class MatrixTest {
     }
 
     @Test
-    fun `inverse Mat4 of identity is identity`() {
+    fun Mat4_inverse_identity_is_identity() {
         assertEquals(Mat4.identity(), inverse(Mat4.identity()))
     }
 
     @Test
-    fun `inverse Mat4`() {
+    fun Mat4_inverse() {
         assertEquals(
             Mat4(
                 Float4(1f, 0f, 0f, 0f),
@@ -184,7 +184,7 @@ class MatrixTest {
     }
 
     @Test
-    fun `inverse non-invertible Mat4`() {
+    fun Mat4_non_inversable() {
         assertEquals(
             Mat4(
                 Float4(Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY, Float.NaN, Float.NaN),
@@ -204,41 +204,41 @@ class MatrixTest {
     }
 
     @Test
-    fun `rotation Float3`() {
+    fun Mat4_rotation_Float3() {
         assertArrayEquals(
             Mat4(
                 Float4(0.998f, 0.0523f, -0.0348f, 0f),
                 Float4(-0.0517f, 0.9985f, 0.0174f, 0f),
                 Float4(0.0357f, -0.0156f, 0.9992f, 0f),
                 Float4(0f, 0f, 0f, 1f)
-            ).toFloatArray(),
-            rotation(Float3(1f, 2f, 3f)).toFloatArray()
+            ).asGLArray(),
+            rotation(Float3(1f, 2f, 3f)).asGLArray()
         )
     }
 
     @Test
-    fun `rotation Mat4`() {
+    fun Mat4_rotation() {
         assertArrayEquals(
             Mat4(
                 Float4(0.0966f, 0.4833f, 0.87f, 0f),
                 Float4(0.169f, 0.507f, 0.8451f, 0f),
                 Float4(0.2242f, 0.5232f, 0.8221f, 0f),
                 Float4(0f, 0f, 0f, 1f)
-            ).toFloatArray(),
-            rotation(MAT_4).toFloatArray()
+            ).asGLArray(),
+            rotation(MAT_4).asGLArray()
         )
     }
 
     @Test
-    fun `rotation axis angle`() {
+    fun Mat4_rotation_axis() {
         assertArrayEquals(
             Mat4(
                 Float4(0.9999f, 5f, 1f, 0f),
                 Float4(-1f, 4f, 7f, 0f),
                 Float4(5f, 5f, 9f, 0f),
                 Float4(0f, 0f, 0f, 1f)
-            ).toFloatArray(),
-            rotation(Float3(1f, 2f, 3f), 90f).toFloatArray()
+            ).asGLArray(),
+            rotation(Float3(1f, 2f, 3f), 90f).asGLArray()
         )
     }
 
@@ -250,8 +250,8 @@ class MatrixTest {
                 Float4(0.0186f, 0.0428f, 0.0558f, 14.0f),
                 Float4(0.0280f, 0.05f, 0.0614f, 15.0f),
                 Float4(0.0373f, 0.0571f, 0.0670f, 16.0f)
-            ).toFloatArray(),
-            normal(MAT_4).toFloatArray()
+            ).asGLArray(),
+            normal(MAT_4).asGLArray()
         )
     }
 
@@ -263,12 +263,12 @@ class MatrixTest {
                 Float4(-0.8164966106414795f, 0f, -0.5773502588272095f, 0.0f),
                 Float4(0.40824830532073975f, 0.7071067690849304f, -0.5773502588272095f, 0.0f),
                 Float4(-0f, -1.4142135381698608f, 3.464101552963257f, 1.0f)
-            ).toFloatArray(),
+            ).asGLArray(),
             lookAt(
                 eye = Float3(1f, 2f, 3f),
                 target = Float3(4f, 5f, 6f),
                 up = Float3(7f, 8f, 9f)
-            ).toFloatArray()
+            ).asGLArray()
         )
     }
 
@@ -280,12 +280,12 @@ class MatrixTest {
                 Float4(-0.34753147f, 0.83584f, 0.42495134f, 0.0f),
                 Float4(0.6710031f, 0.5382513f, -0.50994164f, 0.0f),
                 Float4(-0.6629832f, -3.3943686f, 1.4278367f, 1.0f)
-            ).toFloatArray(),
+            ).asGLArray(),
             lookTowards(
                 eye = Float3(1f, 2f, 3f),
                 direction = Float3(4.4f, -2.5f, 3f),
                 up = Float3(3f, 4f, 5f)
-            ).toFloatArray()
+            ).asGLArray()
         )
     }
 
@@ -297,13 +297,13 @@ class MatrixTest {
                 Float4(0.0f, 114.588646f, 0.0f, 0.0f),
                 Float4(0.0f, 0.0f, 7.0f, -1.0f),
                 Float4(0.0f, 0.0f, 24.0f, 0.0f)
-            ).toFloatArray(),
+            ).asGLArray(),
             perspective(
                 fov = 1f,
                 aspect = 2f,
                 far = 3f,
                 near = 4f
-            ).toFloatArray()
+            ).asGLArray()
         )
     }
 
@@ -315,13 +315,13 @@ class MatrixTest {
                 Float4(0.0f, 114.5886f, 0.0f, 0.0f),
                 Float4(0.0f, 0.0f, 3.0f, -1.0f),
                 Float4(0.0f, 0.0f, 12.0f, 0.0f)
-            ).toFloatArray(),
+            ).asGLArray(),
             projection(
                 fov = 1f,
                 ratio = 2f,
                 far = 3f,
                 near = 4f
-            ).toFloatArray()
+            ).asGLArray()
         )
     }
 
@@ -333,7 +333,7 @@ class MatrixTest {
                 Float4(0.0f, 2.0f, 0.0f, 0.0f),
                 Float4(0.0f, 0.0f, -2.0f, 0.0f),
                 Float4(-3.0f, -7.0f, -11.0f, 1.0f)
-            ).toFloatArray(),
+            ).asGLArray(),
             ortho(
                 l = 1f,
                 r = 2f,
@@ -341,7 +341,7 @@ class MatrixTest {
                 t = 4f,
                 n = 5f,
                 f = 6f
-            ).toFloatArray()
+            ).asGLArray()
         )
     }
 
@@ -350,7 +350,7 @@ class MatrixTest {
         val fromQuaternion = Mat4.from(Quaternion(-0.5f, 0f, -0.5f, 0.70710677f))
         val fromRotation = rotation(normalize(Float3(1f, 0f, 1f)), 90f)
 
-        assertArrayEquals(fromQuaternion.toFloatArray(), fromRotation.toFloatArray())
+        assertArrayEquals(fromQuaternion.asGLArray(), fromRotation.asGLArray())
     }
 
     companion object {

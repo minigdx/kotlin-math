@@ -125,7 +125,7 @@ data class Mat3(
     constructor(m: Mat3) : this(m.x.copy(), m.y.copy(), m.z.copy())
 
     companion object {
-        fun of(vararg a: Float): Mat3 {
+        fun fromRowMajor(vararg a: Float): Mat3 {
             require(a.size >= 9)
             return Mat3(
                 Float3(a[0], a[3], a[6]),
@@ -228,7 +228,7 @@ data class Mat4(
     constructor(m: Mat4) : this(m.x.copy(), m.y.copy(), m.z.copy(), m.w.copy())
 
     companion object {
-        fun of(vararg a: Float): Mat4 {
+        fun fromRowMajor(vararg a: Float): Mat4 {
             require(a.size >= 16)
             return Mat4(
                 Float4(a[0], a[4], a[8], a[12]),
@@ -290,26 +290,6 @@ data class Mat4(
                 z = mz,
                 w = mw
             )
-            /*
-            // Set matrix from quaternion
-            matrix.get(Matrix4.M00) = 1 - 2 * (yy + zz)
-            matrix.get(Matrix4.M01) = 2 * (xy - zw)
-            matrix.get(Matrix4.M02) = 2 * (xz + yw)
-            matrix.get(Matrix4.M03) = 0
-            matrix.get(Matrix4.M10) = 2 * (xy + zw)
-            matrix.get(Matrix4.M11) = 1 - 2 * (xx + zz)
-            matrix.get(Matrix4.M12) = 2 * (yz - xw)
-            matrix.get(Matrix4.M13) = 0
-            matrix.get(Matrix4.M20) = 2 * (xz - yw)
-            matrix.get(Matrix4.M21) = 2 * (yz + xw)
-            matrix.get(Matrix4.M22) = 1 - 2 * (xx + yy)
-            matrix.get(Matrix4.M23) = 0
-            matrix.get(Matrix4.M30) = 0
-            matrix.get(Matrix4.M31) = 0
-            matrix.get(Matrix4.M32) = 0
-            matrix.get(Matrix4.M33) = 1
-
-             */
         }
     }
 
@@ -422,6 +402,7 @@ data class Mat4(
         return Float4(dot(t.x, v), dot(t.y, v), dot(t.z, v), dot(t.w, v))
     }
 
+    @Deprecated("Prefer asGLArray", ReplaceWith("asGLArray()"))
     fun toFloatArray() = floatArrayOf(
         x.x, x.y, x.z, x.w,
         y.x, y.y, y.z, y.w,
@@ -429,7 +410,15 @@ data class Mat4(
         w.x, w.y, w.z, w.w
     )
 
+    @Deprecated("Prefer asGLArray", ReplaceWith("asGLArray()"))
     fun toArray() = arrayOf(
+        x.x, x.y, x.z, x.w,
+        y.x, y.y, y.z, y.w,
+        z.x, z.y, z.z, z.w,
+        w.x, w.y, w.z, w.w
+    )
+
+    fun asGLArray() = arrayOf(
         x.x, x.y, x.z, x.w,
         y.x, y.y, y.z, y.w,
         z.x, z.y, z.z, z.w,
@@ -438,10 +427,10 @@ data class Mat4(
 
     override fun toString(): String {
         return """
-            [${x.x}|${x.y}|${x.z}|${x.w}]
-            [${y.x}|${y.y}|${y.z}|${y.w}]
-            [${z.x}|${z.y}|${z.z}|${z.w}]
-            [${w.x}|${w.y}|${w.z}|${w.w}]
+            [${x.x}|${y.x}|${z.x}|${w.x}]
+            [${x.y}|${y.y}|${z.y}|${w.y}]
+            [${x.z}|${y.z}|${z.z}|${w.z}]
+            [${x.w}|${y.w}|${z.w}|${w.w}]
             """.trimIndent()
     }
 }
@@ -474,7 +463,7 @@ fun inverse(m: Mat3): Mat3 {
 
     val det = a * A + b * B + c * C
 
-    return Mat3.of(
+    return Mat3.fromRowMajor(
         A / det, B / det, C / det,
         (c * h - b * i) / det, (a * i - c * g) / det, (b * g - a * h) / det,
         (b * f - c * e) / det, (c * d - a * f) / det, (a * e - b * d) / det
@@ -568,7 +557,7 @@ fun rotation(d: Float3): Mat4 {
     val c = transform(r, { x -> cos(x) })
     val s = transform(r, { x -> sin(x) })
 
-    return Mat4.of(
+    return Mat4.fromRowMajor(
         c.y * c.z, -c.x * s.z + s.x * s.y * c.z, s.x * s.z + c.x * s.y * c.z, 0.0f,
         c.y * s.z, c.x * c.z + s.x * s.y * s.z, -s.x * c.z + c.x * s.y * s.z, 0.0f,
         -s.y, s.x * c.y, c.x * c.y, 0.0f,
@@ -592,7 +581,7 @@ fun rotation(axis: Float3, angle: Float): Mat4 {
     val d = 1.0f - c
 
     // https://fr.wikipedia.org/wiki/Matrice_de_rotation#Axe_de_rotation
-    return Mat4.of(
+    return Mat4.fromRowMajor(
         x * x * d + c, x * y * d - z * s, x * z * d + y * s, 0.0f,
         y * x * d + z * s, y * y * d + c, y * z * d - x * s, 0.0f,
         z * x * d - y * s, z * y * d + x * s, z * z * d + c, 0.0f,

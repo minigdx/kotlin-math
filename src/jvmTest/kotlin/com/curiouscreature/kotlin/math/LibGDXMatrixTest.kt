@@ -37,7 +37,7 @@ class LibGDXMatrixTest {
                 9f, 10f, 11f, 12f,
                 13f, 14f, 15f, 16f
             )
-        ), transpose(Mat4.of(1f, 2f, 3f, 4f, 5f, 6f, 7f, 8f, 9f, 10f, 11f, 12f, 13f, 14f, 15f, 16f)))
+        ).tra(), transpose(Mat4.fromColumnMajor(1f, 2f, 3f, 4f, 5f, 6f, 7f, 8f, 9f, 10f, 11f, 12f, 13f, 14f, 15f, 16f)))
     }
 
     @Test
@@ -92,28 +92,28 @@ class LibGDXMatrixTest {
             9f, 10f, 11f, 12f,
             13f, 14f, 15f, 16f
         )))
-        val result = Mat4.of(
+        val result = Mat4.fromColumnMajor(
             1f, 2f, 3f, 4f,
             5f, 6f, 7f, 8f,
             9f, 10f, 11f, 12f,
-            13f, 14f, 15f, 16f) * Mat4.of(
+            13f, 14f, 15f, 16f) * Mat4.fromColumnMajor(
             1f, 2f, 3f, 4f,
             5f, 6f, 7f, 8f,
             9f, 10f, 11f, 12f,
             13f, 14f, 15f, 16f)
-        Assertions.assertThat(result.toString()).isEqualToIgnoringNewLines(expected.toString())
+        assertEquals(expected, result)
     }
 
     @Test
     fun multiplication2() {
         val expected = Matrix4().translate(1f, 0f, 0f).mul(Matrix4().translate(0f, 2f, 0f))
         val result = translation(Float3(1f, 0f, 0f)) * translation(Float3(0f, 2f, 0f))
-        Assertions.assertThat(transpose(result).toString()).isEqualToIgnoringNewLines(expected.toString())
+        assertEquals(expected, result)
     }
 }
 
 fun assertEquals(expected: Matrix4, actual: Mat4) {
-    val kotlinMath = actual.toFloatArray()
+    val kotlinMath = actual.asGLArray().toFloatArray()
     val libgdx = expected.`val`
 
     assertArrayEquals(kotlinMath, libgdx)

@@ -14,8 +14,12 @@ fun assertEquals(
     }
 }
 
-fun assertArrayEquals(expected: FloatArray, actual: FloatArray, delta: Float = 0.0001f) {
+fun assertArrayEquals(expected: FloatArray, actual: FloatArray, delta: Float = 0.001f) {
     expected.zip(actual).forEach {
         assertEquals(it.first, it.second, delta)
     }
+}
+
+fun assertArrayEquals(expected: Array<Float>, actual: Array<Float>, delta: Float = 0.001f) {
+    assertArrayEquals(expected.toFloatArray(), actual.toFloatArray(), delta)
 }
