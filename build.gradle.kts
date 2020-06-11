@@ -122,9 +122,21 @@ if (project.file("local.properties").exists()) {
     properties.load(project.file("local.properties").inputStream())
 }
 
+val bintrayUser = if (project.hasProperty("bintray_user")) {
+    project.property("bintray_user") as? String
+} else {
+    System.getProperty("BINTRAY_USER")
+}
+
+val bintrayKey = if (project.hasProperty("bintray_key")) {
+    project.property("bintray_key") as? String
+} else {
+    System.getProperty("BINTRAY_KEY")
+}
+
 configure<com.jfrog.bintray.gradle.BintrayExtension> {
-    user = properties.getProperty("bintray.user") ?: project.property("bintray_user") as? String ?: System.getProperty("BINTRAY_USER")
-    key = properties.getProperty("bintray.key") ?: project.property("bintray_user") as? String ?: System.getProperty("BINTRAY_KEY")
+    user = properties.getProperty("bintray.user") ?: bintrayUser
+    key = properties.getProperty("bintray.key") ?: bintrayKey
     publish = true
     setPublications("maven")
     pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
