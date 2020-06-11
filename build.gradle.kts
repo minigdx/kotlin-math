@@ -146,7 +146,7 @@ configure<com.jfrog.bintray.gradle.BintrayExtension> {
         vcsUrl = "https://github.com/dwursteisen/kotlin-math.git"
         description = project.description
         setLabels("java")
-        setLicenses("Apache 2.0")
+        setLicenses("Apache-2.0")
         desc = description
         version(closureOf<com.jfrog.bintray.gradle.BintrayExtension.VersionConfig> {
             this.name = project.version.toString()
