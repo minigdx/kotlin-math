@@ -185,6 +185,7 @@ class MatrixTest {
 
     @Test
     fun Mat4_non_inversable() {
+        // Equality on String because even if the result is correct, the equality fail on iOS
         assertEquals(
             Mat4(
                 Float4(Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY, Float.NaN, Float.NaN),
@@ -192,14 +193,14 @@ class MatrixTest {
                 Float4(Float.NaN, Float.NaN, Float.NaN, Float.NaN),
                 Float4(Float.NaN, Float.NaN, Float.NaN, Float.NaN)
 
-            ),
+            ).toString(),
             inverse(
                 Mat4(
                     Float4(1f, 1f, 0f, 0f),
                     Float4(1f, 1f, 0f, 0f),
                     Float4(0f, 0f, 1f, 2f),
                     Float4(0f, 0f, 0f, 1f)
-                ))
+                )).toString()
         )
     }
 
