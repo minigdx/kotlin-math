@@ -6,7 +6,11 @@ on:
 
 jobs:
   publish-release:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [macOS-latest, windows-latest, ubuntu-latest]
+
+    runs-on: ${{matrix.os}}
 
     steps:
       - name: Checkout latest code
@@ -30,4 +34,4 @@ jobs:
           NEW_VERSION=$(echo "${GITHUB_REF}" | cut -d "/" -f3)
           echo "New version: ${NEW_VERSION}"
           echo "Github username: ${GITHUB_ACTOR}"
-          ./gradlew -Pversion=${NEW_VERSION} -Pbintray_user=${{secrets.BINTRAY_USER}} -Pbintray_key=${{secrets.BINTRAY_KEY}} bintrayUpload
+          ./gradlew -Pversion=${NEW_VERSION} -PcurrentOs=${{ runner.os }} -Pbintray_user=${{secrets.BINTRAY_USER}} -Pbintray_key=${{secrets.BINTRAY_KEY}} bintrayUpload
