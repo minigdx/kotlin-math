@@ -141,9 +141,9 @@ configure<com.jfrog.bintray.gradle.BintrayExtension> {
     if (findProperty("currentOs") == "macOS") {
         setPublications("jvm", "js", "macosX64", "iosArm64", "iosX64", "kotlinMultiplatform")
     } else if (findProperty("currentOs") == "Windows") {
-        setPublications("mingwX64", "metadata")
+        setPublications("mingwX64")
     } else if (findProperty("currentOs") == "Linux") {
-        setPublications("maven", "linuxX64")
+        setPublications("linuxX64")
     }
     pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
         repo = "minigdx"
