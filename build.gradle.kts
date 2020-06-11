@@ -138,12 +138,12 @@ configure<com.jfrog.bintray.gradle.BintrayExtension> {
     user = properties.getProperty("bintray.user") ?: bintrayUser
     key = properties.getProperty("bintray.key") ?: bintrayKey
     publish = true
-    if (findProperty("currentOs") == "macos-latest") {
-        setPublications("jvm", "js", "macos-x64", "ios-arm64", "ios-arm32", "kotlinMultiplatform")
-    } else if(findProperty("currentOs") == "Windows") {
-        setPublications("windows-x64")
-    } else if(findProperty("currentOs") == "ubuntu-latest"){
-        setPublications("maven", "linux-x64")
+    if (findProperty("currentOs") == "macOS") {
+        setPublications("jvm", "js", "macosX64", "iosArm64", "iosX64", "kotlinMultiplatform")
+    } else if (findProperty("currentOs") == "Windows") {
+        setPublications("mingwX64", "metadata")
+    } else if (findProperty("currentOs") == "Linux") {
+        setPublications("maven", "linuxX64")
     }
     pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
         repo = "minigdx"
@@ -178,5 +178,11 @@ tasks.withType<com.jfrog.bintray.gradle.tasks.BintrayUploadTask> {
                     })
                 }
             }
+    }
+}
+
+project.afterEvaluate {
+    project.publishing.publications.forEach {
+        println("Available publication: ${it.name}")
     }
 }
