@@ -22,7 +22,7 @@ repositories {
 
 publishing {
     publications {
-        create<MavenPublication>("default") {
+        create<MavenPublication>("maven") {
             from(components["kotlin"])
         }
     }
