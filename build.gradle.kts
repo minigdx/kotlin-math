@@ -138,7 +138,13 @@ configure<com.jfrog.bintray.gradle.BintrayExtension> {
     user = properties.getProperty("bintray.user") ?: bintrayUser
     key = properties.getProperty("bintray.key") ?: bintrayKey
     publish = true
-    setPublications("maven")
+    if (findProperty("currentOs") == "macos-latest") {
+        setPublications("jvm", "js", "macos-x64", "ios-arm64", "ios-arm32", "kotlinMultiplatform")
+    } else if(findProperty("currentOs") == "Windows") {
+        setPublications("windows-x64")
+    } else if(findProperty("currentOs") == "ubuntu-latest"){
+        setPublications("maven", "linux-x64")
+    }
     pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
         repo = "minigdx"
         name = project.name
