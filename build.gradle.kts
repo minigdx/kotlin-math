@@ -139,7 +139,7 @@ configure<com.jfrog.bintray.gradle.BintrayExtension> {
     key = properties.getProperty("bintray.key") ?: bintrayKey
     publish = true
     if (findProperty("currentOs") == "macOS") {
-        setPublications("jvm", "js", "macosX64", "iosArm64", "iosX64", "kotlinMultiplatform")
+        setPublications("jvm", "js", "macosX64", "iosArm64", "iosX64", "metadata")
     } else if (findProperty("currentOs") == "Windows") {
         setPublications("mingwX64")
     } else if (findProperty("currentOs") == "Linux") {
