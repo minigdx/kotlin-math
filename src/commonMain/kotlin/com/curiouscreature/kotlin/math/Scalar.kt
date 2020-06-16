@@ -20,6 +20,9 @@ package com.curiouscreature.kotlin.math
 
 import kotlin.math.pow
 
+typealias Degrees = Float
+typealias Radians = Float
+
 const val PI = 3.1415926536f
 const val HALF_PI = PI * 0.5f
 const val TWO_PI = PI * 2.0f
@@ -34,9 +37,15 @@ inline fun saturate(x: Float) = clamp(x, 0.0f, 1.0f)
 
 inline fun mix(a: Float, b: Float, x: Float) = a * (1.0f - x) + b * x
 
-inline fun degrees(v: Float) = v * (180.0f * INV_PI)
+/**
+ * Convert Radians to Degrees
+ */
+inline fun degrees(v: Radians) = v * (180.0f * INV_PI)
 
-inline fun radians(v: Float) = v * (PI / 180.0f)
+/**
+ * Convert Degrees to Radians
+ */
+inline fun radians(v: Degrees) = v * (PI / 180.0f)
 
 inline fun fract(v: Float) = v % 1
 

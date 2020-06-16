@@ -610,23 +610,21 @@ fun lookTowards(eye: Float3, direction: Float3, up: Float3): Mat4 {
     )
 }
 
-fun perspective(fov: Float, aspect: Float, near: Float, far: Float): Mat4 {
-    val tanHalfFov = tan(radians(fov) / 2f)
-
+/**
+ * @param fov: Field Of View in angle.
+ * @param aspect: Aspect of the projection. Most of the time it's a ratio width/height.
+ * @param near: start of the frustrum.
+ * @param far: end of the frustum.
+ *
+ */
+fun perspective(fov: Degrees, aspect: Float, near: Float, far: Float): Mat4 {
+    val f = 1f / tan(radians(fov) * 0.5f)
     return Mat4(
-        Float4(x = 1.0f / (aspect * tanHalfFov)),
-        Float4(y = 1.0f / tanHalfFov),
-        Float4(z = -(far + near) / (far - near), w = -1.0f),
-        Float4(z = -(2.0f * far * near) / (far - near))
+        Float4(x = f / aspect),
+        Float4(y = f),
+        Float4(z = (far + near) / (near - far), w = -1.0f),
+        Float4(z = 2f * (far * near) / (near - far))
     )
-}
-
-fun projection(fov: Float, ratio: Float, near: Float, far: Float): Mat4 {
-    val t = 1.0f / tan(radians(fov) * 0.5f)
-    val a = -far / (far - near)
-    val b = -(far * near) / (far - near)
-    val c = t / ratio
-    return Mat4(Float4(x = c), Float4(y = t), Float4(z = a, w = -1.0f), Float4(z = b))
 }
 
 fun ortho(l: Float, r: Float, b: Float, t: Float, n: Float, f: Float) = Mat4(

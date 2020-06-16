@@ -292,38 +292,20 @@ class MatrixTest {
 
     @Test
     fun perspective() {
-        assertArrayEquals(
-            Mat4(
-                Float4(57.294323f, 0.0f, 0.0f, 0.0f),
-                Float4(0.0f, 114.588646f, 0.0f, 0.0f),
-                Float4(0.0f, 0.0f, 7.0f, -1.0f),
-                Float4(0.0f, 0.0f, 24.0f, 0.0f)
-            ).asGLArray(),
-            perspective(
-                fov = 1f,
-                aspect = 2f,
-                far = 3f,
-                near = 4f
-            ).asGLArray()
+        val result = perspective(
+            fov = 45f,
+            aspect = 1.3333333f,
+            far = 100f,
+            near = 0.1f
         )
-    }
 
-    @Test
-    fun projection() {
-        assertArrayEquals(
-            Mat4(
-                Float4(57.294323f, 0.0f, 0.0f, 0.0f),
-                Float4(0.0f, 114.5886f, 0.0f, 0.0f),
-                Float4(0.0f, 0.0f, 3.0f, -1.0f),
-                Float4(0.0f, 0.0f, 12.0f, 0.0f)
-            ).asGLArray(),
-            projection(
-                fov = 1f,
-                ratio = 2f,
-                far = 3f,
-                near = 4f
-            ).asGLArray()
+        val expected = Mat4.fromColumnMajor(
+            1.8106601238250732f, 0f, 0f, 0f,
+            0f, 2.4142136573791504f, 0f, 0f,
+            0f, 0f, -1.0020020008087158f, -1f,
+            0f, 0f, -0.20020020008087158f, 0f
         )
+        assertArrayEquals(expected.asGLArray(), result.asGLArray())
     }
 
     @Test
