@@ -14,8 +14,12 @@ data class Quaternion(val x: Float, val y: Float, val z: Float, val w: Float) {
         return floatArrayOf(x, y, z, w)
     }
 
-    // https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles#Source_Code_2
+    /**
+     * Transform a quaternion in Euler angles.
+     * Angles are in degrees.
+     */
     fun toEulerAngles(): Float3 {
+        // https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles#Source_Code_2
         // roll (x-axis rotation)
         val sinrCosp = 2f * (w * x + y * z)
         val cosrCosp = 1f - 2f * (x * x + y * y)
@@ -23,7 +27,7 @@ data class Quaternion(val x: Float, val y: Float, val z: Float, val w: Float) {
 
         // pitch (y-axis rotation)
         val sinp = 2f * (w * y - z * x)
-        val pitch = if (abs(sinp) >= 1)
+        val pitch = if (abs(sinp) >= 1f)
             PI / 2f * sign(sinp) // use 90 degrees if out of range
         else
             asin(sinp)
