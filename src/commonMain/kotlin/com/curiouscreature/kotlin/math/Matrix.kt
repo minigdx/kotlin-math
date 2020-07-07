@@ -16,8 +16,6 @@
 
 package com.curiouscreature.kotlin.math
 
-import kotlin.math.asin
-import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.tan
@@ -320,16 +318,8 @@ data class Mat4(
         get() = w.xyz
     val rotation: Float3
         get() {
-            val x = normalize(right)
-            val y = normalize(up)
-            val z = normalize(forward)
-
-            return when {
-                z.y <= -1.0f -> Float3(degrees(-HALF_PI), 0.0f, degrees(atan2(x.z, y.z)))
-                z.y >= 1.0f -> Float3(degrees(HALF_PI), 0.0f, degrees(atan2(-x.z, -y.z)))
-                else -> Float3(
-                    degrees(-asin(z.y)), degrees(-atan2(z.x, z.z)), degrees(atan2(x.y, y.y)))
-            }
+            val toEulerAngles = Quaternion.from(this).toEulerAngles()
+            return Float3(degrees(toEulerAngles.x), degrees(toEulerAngles.y), degrees(toEulerAngles.z))
         }
 
     inline val upperLeft: Mat3

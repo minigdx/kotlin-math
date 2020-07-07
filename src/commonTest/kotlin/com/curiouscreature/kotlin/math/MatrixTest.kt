@@ -244,6 +244,24 @@ class MatrixTest {
     }
 
     @Test
+    fun Mat4_rotation_by_axis_x() {
+        val x = rotation(Float3(1f, 0f, 0f), 90f).rotation.x
+        assertEquals(-90f, x, delta = 0.1f)
+    }
+
+    @Test
+    fun Mat4_rotation_by_axis_y() {
+        val y = rotation(Float3(0f, 1f, 0f), 90f).rotation.y
+        assertEquals(-90f, y, delta = 0.1f)
+    }
+
+    @Test
+    fun Mat4_rotation_by_axis_z() {
+        val z = rotation(Float3(0f, 0f, 1f), 90f).rotation.z
+        assertEquals(-90f, z, delta = 0.1f)
+    }
+
+    @Test
     fun normal() {
         assertArrayEquals(
             Mat4(
