@@ -2,7 +2,7 @@ import java.util.Date
 import java.util.Properties
 
 plugins {
-    kotlin("multiplatform") version "1.3.70"
+    kotlin("multiplatform") version "1.4.0"
     id("maven-publish")
     id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
     id("com.jfrog.bintray") version "1.8.5"
@@ -17,7 +17,7 @@ if (version == "unspecified") {
 
 repositories {
     jcenter()
-    maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
+    maven(url = "https://kotlin.bintray.com/kotlinx/")
 }
 
 publishing {
@@ -35,8 +35,8 @@ kotlin {
 
     js {
         this.useCommonJs()
-        this.browser
-        this.nodejs
+        this.browser()
+        this.nodejs()
     }
 
     jvm {
