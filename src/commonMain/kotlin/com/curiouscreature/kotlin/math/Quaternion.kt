@@ -3,7 +3,9 @@ package com.curiouscreature.kotlin.math
 import kotlin.math.abs
 import kotlin.math.asin
 import kotlin.math.atan2
+import kotlin.math.cos
 import kotlin.math.sign
+import kotlin.math.sin
 import kotlin.math.sqrt
 
 data class Quaternion(val x: Float, val y: Float, val z: Float, val w: Float) {
@@ -40,6 +42,21 @@ data class Quaternion(val x: Float, val y: Float, val z: Float, val w: Float) {
         return Float3(roll, pitch, yaw)
     }
 
+    /** Multiplies this quaternion with another one in the form of this = this * other
+     *
+     * @param other Quaternion to multiply with
+     * @return This quaternion for chaining
+     */
+    fun mul(other: Quaternion): Quaternion {
+        val newX: Float = this.w * other.x + this.x * other.w + this.y * other.z - this.z * other.y
+        val newY: Float = this.w * other.y + this.y * other.w + this.z * other.x - this.x * other.z
+        val newZ: Float = this.w * other.z + this.z * other.w + this.x * other.y - this.y * other.x
+        val newW: Float = this.w * other.w - this.x * other.x - this.y * other.y - this.z * other.z
+        return Quaternion(newX, newY, newZ, newW)
+    }
+
+    operator fun Quaternion.times(other: Quaternion): Quaternion = this.mul(other)
+
     override fun toString(): String {
         return "($x $y $z $w)"
     }
@@ -50,40 +67,68 @@ data class Quaternion(val x: Float, val y: Float, val z: Float, val w: Float) {
             return Quaternion(0f, 0f, 0f, 1f)
         }
 
-        // https://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
-        fun from(m: Mat4): Quaternion {
+        /**
+         * Construct a quaternion using a [Mat4]
+         */
+        fun from(m2: Mat4): Quaternion {
+            // https://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
+            // The code is a conversion from the `setFromAxis` method from LibGDX.
+            val m = transpose(m2)
             val tr = m.x.x + m.y.y + m.z.z
 
             return if (tr > 0) {
-                val s = sqrt(tr + 1f) * 2f // S=4*qw
-                val qw = 0.25f * s
-                val qx = (m.z.y - m.y.z) / s
-                val qy = (m.x.z - m.z.x) / s
-                val qz = (m.y.x - m.x.y) / s
+                var s = sqrt(tr + 1f)
+                val qw = s * 0.5f
+                s = 0.5f / s
+                val qx = (m.z.y - m.y.z) * s
+                val qy = (m.x.z - m.z.x) * s
+                val qz = (m.y.x - m.x.y) * s
                 Quaternion(qx, qy, qz, qw)
             } else if ((m.x.x > m.y.y) && (m.x.x > m.z.z)) {
-                val s = sqrt(1f + m.x.x - m.y.y - m.z.z) * 2; // S=4*qx
-                val qw = (m.z.y - m.y.z) / s
-                val qx = 0.25f * s
-                val qy = (m.x.y + m.y.x) / s
-                val qz = (m.x.z + m.z.x) / s
+                var s = sqrt(1f + m.x.x - m.y.y - m.z.z)
+                val qx = s * 0.5f
+                s = 0.5f / s
+                val qy = (m.y.x + m.x.y) * s
+                val qz = (m.x.z + m.z.x) * s
+                val qw = (m.z.y - m.y.z) * s
                 Quaternion(qx, qy, qz, qw)
             } else if (m.y.y > m.z.z) {
-                val s = sqrt(1.0f + m.y.y - m.x.x - m.z.z) * 2; // S=4*qy
-                val qw = (m.x.z - m.z.x) / s
-                val qx = (m.x.y + m.y.x) / s
-                val qy = 0.25f * s
-                val qz = (m.y.z + m.z.y) / s
+                var s = sqrt(1.0f + m.y.y - m.x.x - m.z.z)
+                val qy = s * 0.5f
+                s = 0.5f / s
+                val qx = (m.y.x + m.x.y) * s
+                val qz = (m.y.z + m.z.y) * s
+                val qw = (m.x.z - m.z.x) * s
                 Quaternion(qx, qy, qz, qw)
             } else {
-                val s = sqrt(1.0f + m.z.z - m.x.x - m.y.y) * 2 // S=4*qz
-                val qw = (m.y.x - m.x.y) / s
-                val qx = (m.x.z + m.z.x) / s
-                val qy = (m.y.z + m.z.y) / s
-                val qz = 0.25f * s
+                var s = sqrt(1.0f + m.z.z - m.x.x - m.y.y)
+                val qz = s * 0.5f
+                s = 0.5f / s
+                val qx = (m.x.z + m.z.x) * s
+                val qy = (m.z.y + m.y.z) * s
+                val qw = (m.y.x - m.x.y) * s
                 Quaternion(qx, qy, qz, qw)
             }
         }
+
+        /**
+         * Create a Quaternion from Eulers angle.
+         * Angles are expressed in degres.
+         */
+        fun fromEulers(x: Float, y: Float, z: Float, angle: Degrees): Quaternion {
+            var d: Float = length(Float3(x, y, z))
+            if (d == 0f) return identity()
+            d = 1f / d
+            val radians = radians(angle)
+            val l_ang: Float = if (radians < 0) TWO_PI - -radians % TWO_PI else radians % TWO_PI
+            val l_sin = sin(l_ang / 2f)
+            return normalize(Quaternion(d * x * l_sin, d * y * l_sin, d * z * l_sin, cos(l_ang / 2f)))
+        }
+
+        /**
+         * @see [fromEulers]
+         */
+        fun fromEulers(vector: Float3, angle: Degrees): Quaternion = fromEulers(vector.x, vector.y, vector.z, angle)
     }
 }
 

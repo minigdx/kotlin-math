@@ -6,9 +6,11 @@ plugins {
     id("maven-publish")
     id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
     id("com.jfrog.bintray") version "1.8.5"
+    id("io.github.gradle-nexus.publish-plugin") version "1.0.0"
+    id("org.jetbrains.dokka") version "1.4.20"
 }
 
-group = "com.github.dwursteisen.kotlin-math"
+group = "com.github.minigdx"
 version = project.properties["version"] ?: "1.0-SNAPSHOT"
 
 if (version == "unspecified") {
@@ -16,14 +18,21 @@ if (version == "unspecified") {
 }
 
 repositories {
+    mavenCentral()
     jcenter()
-    maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
+}
+
+val javadocJar = tasks.register<Jar>("javadocJar") {
+    dependsOn(tasks.getByName("dokkaHtml"))
+    archiveClassifier.set("javadoc")
+    from(project.buildDir.resolve("dokka"))
 }
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
             from(components["kotlin"])
+            artifact(javadocJar.get())
         }
     }
 }
@@ -132,6 +141,12 @@ val bintrayKey = if (project.hasProperty("bintray_key")) {
     project.property("bintray_key") as? String
 } else {
     System.getProperty("BINTRAY_KEY")
+}
+
+nexusPublishing {
+    repositories {
+        sonatype()
+    }
 }
 
 configure<com.jfrog.bintray.gradle.BintrayExtension> {

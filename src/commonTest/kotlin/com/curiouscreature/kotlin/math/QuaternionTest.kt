@@ -24,19 +24,26 @@ class QuaternionTest {
         )
 
         assertEquals(
-            normalize(Quaternion(-0.7071068f, 0.0f, 0.0f, 0.7071067f)),
-            Quaternion.from(Mat4.identity() * rotation(Float3(1f, 0f, 0f), 90f))
+            normalize(Quaternion(0.7071068f, 0.0f, 0.0f, 0.7071067f)),
+            Quaternion.from(rotation(Float3(1f, 0f, 0f), 90f))
         )
 
         assertEquals(
-            normalize(Quaternion(0.0f, 0.0f, -0.70710677f, 0.70710677f)),
-            Quaternion.from(Mat4.identity() * rotation(Float3(0f, 0f, 1f), 90f))
+            normalize(Quaternion(0.0f, 0.0f, 0.70710677f, 0.70710677f)),
+            Quaternion.from(rotation(Float3(0f, 0f, 1f), 90f))
         )
 
         assertEquals(
-            normalize(Quaternion(-0.5f, 0.0f, -0.5f, 0.70710677f)),
-            Quaternion.from(Mat4.identity() * rotation(normalize(Float3(1f, 0f, 1f)), 90f))
+            normalize(Quaternion(0.5f, 0.0f, 0.5f, 0.70710677f)),
+            Quaternion.from(rotation(normalize(Float3(1f, 0f, 1f)), 90f))
         )
+    }
+
+    @Test
+    fun fromEulers() {
+        val quaternion = Quaternion.fromEulers(1f, 0f, 0f, 90f)
+        val matrix = Quaternion.from(rotation(normalize(Float3(1f, 0f, 0f)), 90f))
+        assertEquals(matrix, quaternion)
     }
 
     companion object {
