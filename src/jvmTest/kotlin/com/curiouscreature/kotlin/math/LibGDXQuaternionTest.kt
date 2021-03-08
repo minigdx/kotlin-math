@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.Matrix4
 import com.badlogic.gdx.math.Quaternion as Quat
 import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.utils.GdxNativesLoader
-import kotlin.math.abs
 import kotlin.test.Test
 
 class LibGDXQuaternionTest {
@@ -41,8 +40,8 @@ class LibGDXQuaternionTest {
 
     fun assertEquals(expected: Quat, actual: Quaternion) {
         assertArrayEquals(
-            floatArrayOf(abs(expected.x), abs(expected.y), abs(expected.z), abs(expected.w)),
-            floatArrayOf(abs(actual.x), abs(actual.y), abs(actual.z), abs(actual.w))
+            floatArrayOf(expected.x, expected.y, expected.z, expected.w),
+            floatArrayOf(actual.x, actual.y, actual.z, actual.w)
         )
     }
 }

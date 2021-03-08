@@ -1343,10 +1343,18 @@ data class Bool4(
     }
 }
 
+/**
+ * Interpolation between [a] and [b].
+ * [blend] is expected to be a value between 0..1.
+ *
+ * It returns a vector close to a when the blend value is close to 0.
+ * It returns a vector close to b when the blend value is close to 1.
+ *
+ */
 fun interpolate(a: Float3, b: Float3, blend: Float): Float3 {
     val x = a.x + blend * (b.x - a.x)
-    val y = a.y + blend * (b.y - a.x)
-    val z = a.z + blend * (b.z - a.x)
+    val y = a.y + blend * (b.y - a.y)
+    val z = a.z + blend * (b.z - a.z)
 
     return Float3(x, y, z)
 }
