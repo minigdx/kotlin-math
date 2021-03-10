@@ -1,5 +1,5 @@
 plugins {
-    id("com.github.minigdx.gradle.plugin.developer") version "1.0-SNAPSHOT"
+    id("com.github.minigdx.gradle.plugin.developer.mpp") version "1.0-SNAPSHOT"
 }
 
 repositories {
