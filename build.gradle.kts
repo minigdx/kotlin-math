@@ -1,10 +1,9 @@
 plugins {
-    id("com.github.minigdx.gradle.plugin.developer.mpp") version "1.0-SNAPSHOT"
+    id("com.github.minigdx.gradle.plugin.developer.mpp") version "1.0.0-alpha1"
 }
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 dependencies {
