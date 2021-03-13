@@ -1,203 +1,64 @@
-import java.util.Date
-import java.util.Properties
-
 plugins {
-    kotlin("multiplatform") version "1.3.70"
-    id("maven-publish")
-    id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
-    id("com.jfrog.bintray") version "1.8.5"
-    id("io.github.gradle-nexus.publish-plugin") version "1.0.0"
-    id("org.jetbrains.dokka") version "1.4.20"
-}
-
-group = "com.github.minigdx"
-version = project.properties["version"] ?: "1.0-SNAPSHOT"
-
-if (version == "unspecified") {
-    version = "1.0-SNAPSHOT"
+    id("com.github.minigdx.gradle.plugin.developer.mpp") version "1.0.0-alpha2"
 }
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
-val javadocJar = tasks.register<Jar>("javadocJar") {
-    dependsOn(tasks.getByName("dokkaHtml"))
-    archiveClassifier.set("javadoc")
-    from(project.buildDir.resolve("dokka"))
+dependencies {
+    this.jvmTestImplementation("com.badlogicgames.gdx:gdx-backend-lwjgl:1.9.9")
+    this.jvmTestImplementation("com.badlogicgames.gdx:gdx-platform:1.9.9:natives-desktop")
+    this.jvmTestImplementation("org.assertj:assertj-core:3.11.1")
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            from(components["kotlin"])
-            artifact(javadocJar.get())
-        }
+minigdxDeveloper {
+    this.name.set("kotlin-math")
+    this.description.set("Set of Kotlin APIs to make graphics math easier to write.")
+    this.projectUrl.set("https://github.com/minigdx/kotlin-math")
+    this.licence {
+        name.set("Apache License 2.0")
+        url.set("https://github.com/minigdx/kotlin-math/blob/master/LICENSE")
     }
-}
-
-kotlin {
-    /* Targets configuration omitted.
-    *  To find out how to configure the targets, please follow the link:
-    *  https://kotlinlang.org/docs/reference/building-mpp-with-gradle.html#setting-up-targets */
-
-    js {
-        this.useCommonJs()
-        this.browser
-        this.nodejs
+    developer {
+        name.set("David Wursteisen")
+        email.set("david.wursteisen+minigdx@gmail.com")
+        url.set("https://github.com/dwursteisen")
     }
 
-    jvm {
-        this.compilations.getByName("main").kotlinOptions.jvmTarget = "1.8"
-        this.compilations.getByName("test").kotlinOptions.jvmTarget = "1.8"
+    developer {
+        name.set("Romain Guy")
+        email.set("romainguy@curious-creature.com")
+        url.set("https://github.com/romainguy")
     }
 
-    mingwX64() {
-        binaries {
-            staticLib {}
-            sharedLib {}
-        }
-    }
-    linuxX64() {
-        binaries {
-            staticLib {}
-            sharedLib {}
-        }
-    }
-    ios() {
-        binaries {
-            staticLib {}
-            sharedLib {}
-        }
-    }
-    macosX64() {
-        binaries {
-            staticLib {}
-            sharedLib {}
-        }
+    developer {
+        name.set("Denis Konoplev")
+        email.set("dekonoplyov@gmail.com")
     }
 
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(kotlin("stdlib-common"))
-            }
-        }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-            }
-        }
-
-        val jsMain by getting {
-            dependencies {
-                implementation(kotlin("stdlib-js"))
-            }
-        }
-
-        val jsTest by getting {
-            dependencies {
-                implementation(kotlin("test-js"))
-            }
-        }
-
-        val jvmMain by getting {
-            dependencies {
-                implementation(kotlin("stdlib-jdk8"))
-            }
-        }
-
-        val jvmTest by getting {
-            dependencies {
-                implementation(kotlin("test-junit"))
-
-                implementation("com.badlogicgames.gdx:gdx-backend-lwjgl:1.9.9")
-                implementation("com.badlogicgames.gdx:gdx-platform:1.9.9:natives-desktop")
-
-                implementation("org.assertj:assertj-core:3.11.1")
-            }
-        }
-
-        val macosX64Main by getting {
-            dependencies { }
-        }
+    developer {
+        name.set("G0BL1N")
+        email.set("piraka282@gmail.com")
     }
-}
 
-val properties = Properties()
-if (project.file("local.properties").exists()) {
-    properties.load(project.file("local.properties").inputStream())
-}
-
-val bintrayUser = if (project.hasProperty("bintray_user")) {
-    project.property("bintray_user") as? String
-} else {
-    System.getProperty("BINTRAY_USER")
-}
-
-val bintrayKey = if (project.hasProperty("bintray_key")) {
-    project.property("bintray_key") as? String
-} else {
-    System.getProperty("BINTRAY_KEY")
-}
-
-nexusPublishing {
-    repositories {
-        sonatype()
+    developer {
+        name.set("shiraji")
+        email.set("isogai.shiraji@gmail.com")
     }
-}
 
-configure<com.jfrog.bintray.gradle.BintrayExtension> {
-    user = properties.getProperty("bintray.user") ?: bintrayUser
-    key = properties.getProperty("bintray.key") ?: bintrayKey
-    publish = true
-    if (findProperty("currentOs") == "macOS") {
-        setPublications("jvm", "js", "macosX64", "iosArm64", "iosX64", "metadata")
-    } else if (findProperty("currentOs") == "Windows") {
-        setPublications("mingwX64")
-    } else if (findProperty("currentOs") == "Linux") {
-        setPublications("maven", "linuxX64")
+    developer {
+        name.set("Kyle Nordbo")
+        email.set("knordbo@atlassian.com")
     }
-    pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
-        repo = "minigdx"
-        name = project.name
-        githubRepo = "dwursteisen/kotlin-math.git"
-        vcsUrl = "https://github.com/dwursteisen/kotlin-math.git"
-        description = project.description
-        setLabels("java")
-        setLicenses("Apache-2.0")
-        desc = description
-        version(closureOf<com.jfrog.bintray.gradle.BintrayExtension.VersionConfig> {
-            this.name = project.version.toString()
-            released = Date().toString()
-        })
-    })
-}
 
-tasks.named("bintrayUpload") {
-    dependsOn(":publishToMavenLocal")
-}
-
-tasks.withType<com.jfrog.bintray.gradle.tasks.BintrayUploadTask> {
-    doFirst {
-        project.publishing.publications
-            .filterIsInstance<MavenPublication>()
-            .forEach { publication ->
-                val moduleFile = buildDir.resolve("publications/${publication.name}/module.json")
-                if (moduleFile.exists()) {
-                    publication.artifact(object :
-                        org.gradle.api.publish.maven.internal.artifact.FileBasedMavenArtifact(moduleFile) {
-                        override fun getDefaultExtension() = "module"
-                    })
-                }
-            }
+    developer {
+        name.set("Ryan Harter")
+        email.set("ryanjharter@gmail.com")
     }
-}
 
-project.afterEvaluate {
-    project.publishing.publications.forEach {
-        println("Available publication: ${it.name}")
+    developer {
+        name.set("Ravindra Kumar")
+        email.set("ravindrakumar8088@gmail.com")
     }
 }
