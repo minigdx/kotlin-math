@@ -1,10 +1,10 @@
 package com.curiouscreature.kotlin.math
 
 import com.badlogic.gdx.math.Matrix4
-import com.badlogic.gdx.math.Quaternion as Quat
 import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.utils.GdxNativesLoader
 import kotlin.test.Test
+import com.badlogic.gdx.math.Quaternion as Quat
 
 class LibGDXQuaternionTest {
     init {

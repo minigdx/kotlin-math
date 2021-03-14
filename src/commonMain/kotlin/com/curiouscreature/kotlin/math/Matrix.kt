@@ -102,15 +102,17 @@ data class Mat2(
     }
 
     fun toFloatArray() = floatArrayOf(
-        x.x, y.x,
-        x.y, y.y
+        x.x,
+        y.x,
+        x.y,
+        y.y
     )
 
     override fun toString(): String {
         return """
             |${x.x} ${y.x}|
             |${x.y} ${y.y}|
-            """.trimIndent()
+        """.trimIndent()
     }
 }
 
@@ -209,7 +211,7 @@ data class Mat3(
             |${x.x} ${y.x} ${z.x}|
             |${x.y} ${y.y} ${z.y}|
             |${x.z} ${y.z} ${z.z}|
-            """.trimIndent()
+        """.trimIndent()
     }
 }
 
@@ -282,12 +284,14 @@ data class Mat4(
                 0f,
                 1f
             )
-            return transpose(Mat4(
-                x = mx,
-                y = my,
-                z = mz,
-                w = mw
-            ))
+            return transpose(
+                Mat4(
+                    x = mx,
+                    y = my,
+                    z = mz,
+                    w = mw
+                )
+            )
         }
     }
 
@@ -421,7 +425,7 @@ data class Mat4(
             [${x.y}|${y.y}|${z.y}|${w.y}]
             [${x.z}|${y.z}|${z.z}|${w.z}]
             [${x.w}|${y.w}|${z.w}|${w.w}]
-            """.trimIndent()
+        """.trimIndent()
     }
 }
 
