@@ -636,25 +636,29 @@ fun refract(i: Float2, n: Float2, eta: Float): Float2 {
 inline fun clamp(v: Float2, min: Float, max: Float): Float2 {
     return Float2(
         clamp(v.x, min, max),
-        clamp(v.y, min, max))
+        clamp(v.y, min, max)
+    )
 }
 
 inline fun clamp(v: Float2, min: Float2, max: Float2): Float2 {
     return Float2(
         clamp(v.x, min.x, max.x),
-        clamp(v.y, min.y, max.y))
+        clamp(v.y, min.y, max.y)
+    )
 }
 
 inline fun mix(a: Float2, b: Float2, x: Float): Float2 {
     return Float2(
         mix(a.x, b.x, x),
-        mix(a.y, b.y, x))
+        mix(a.y, b.y, x)
+    )
 }
 
 inline fun mix(a: Float2, b: Float2, x: Float2): Float2 {
     return Float2(
         mix(a.x, b.x, x.x),
-        mix(a.y, b.y, x.y))
+        mix(a.y, b.y, x.y)
+    )
 }
 
 inline fun min(v: Float2) = min(v.x, v.y)
@@ -727,28 +731,32 @@ inline fun clamp(v: Float3, min: Float, max: Float): Float3 {
     return Float3(
         clamp(v.x, min, max),
         clamp(v.y, min, max),
-        clamp(v.z, min, max))
+        clamp(v.z, min, max)
+    )
 }
 
 inline fun clamp(v: Float3, min: Float3, max: Float3): Float3 {
     return Float3(
         clamp(v.x, min.x, max.x),
         clamp(v.y, min.y, max.y),
-        clamp(v.z, min.z, max.z))
+        clamp(v.z, min.z, max.z)
+    )
 }
 
 inline fun mix(a: Float3, b: Float3, x: Float): Float3 {
     return Float3(
         mix(a.x, b.x, x),
         mix(a.y, b.y, x),
-        mix(a.z, b.z, x))
+        mix(a.z, b.z, x)
+    )
 }
 
 inline fun mix(a: Float3, b: Float3, x: Float3): Float3 {
     return Float3(
         mix(a.x, b.x, x.x),
         mix(a.y, b.y, x.y),
-        mix(a.z, b.z, x.z))
+        mix(a.z, b.z, x.z)
+    )
 }
 
 inline fun min(v: Float3) = min(v.x, min(v.y, v.z))
@@ -807,7 +815,8 @@ inline fun clamp(v: Float4, min: Float, max: Float): Float4 {
         clamp(v.x, min, max),
         clamp(v.y, min, max),
         clamp(v.z, min, max),
-        clamp(v.w, min, max))
+        clamp(v.w, min, max)
+    )
 }
 
 inline fun clamp(v: Float4, min: Float4, max: Float4): Float4 {
@@ -815,7 +824,8 @@ inline fun clamp(v: Float4, min: Float4, max: Float4): Float4 {
         clamp(v.x, min.x, max.x),
         clamp(v.y, min.y, max.y),
         clamp(v.z, min.z, max.z),
-        clamp(v.w, min.z, max.w))
+        clamp(v.w, min.z, max.w)
+    )
 }
 
 inline fun mix(a: Float4, b: Float4, x: Float): Float4 {
@@ -823,7 +833,8 @@ inline fun mix(a: Float4, b: Float4, x: Float): Float4 {
         mix(a.x, b.x, x),
         mix(a.y, b.y, x),
         mix(a.z, b.z, x),
-        mix(a.w, b.w, x))
+        mix(a.w, b.w, x)
+    )
 }
 
 inline fun mix(a: Float4, b: Float4, x: Float4): Float4 {
@@ -831,7 +842,8 @@ inline fun mix(a: Float4, b: Float4, x: Float4): Float4 {
         mix(a.x, b.x, x.x),
         mix(a.y, b.y, x.y),
         mix(a.z, b.z, x.z),
-        mix(a.w, b.w, x.w))
+        mix(a.w, b.w, x.w)
+    )
 }
 
 inline fun min(v: Float4) = min(v.x, min(v.y, min(v.z, v.w)))

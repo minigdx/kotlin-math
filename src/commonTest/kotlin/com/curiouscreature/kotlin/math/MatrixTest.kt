@@ -96,11 +96,13 @@ class MatrixTest {
                 Float3(-2f, 1f, 1f),
                 Float3(2f, -2f, 0f)
             ),
-            inverse(Mat3(
-                Float3(1f, 0f, 0.5f),
-                Float3(1f, 0f, 0f),
-                Float3(1f, 1f, 1f)
-            ))
+            inverse(
+                Mat3(
+                    Float3(1f, 0f, 0.5f),
+                    Float3(1f, 0f, 0f),
+                    Float3(1f, 1f, 1f)
+                )
+            )
         )
     }
 
@@ -123,12 +125,14 @@ class MatrixTest {
                 Float4(0f, 0f, 6f, 0f),
                 Float4(0f, 0f, 0f, 1f)
             ),
-            scale(Mat4(
-                Float4(2f, 0f, 0f, 0f),
-                Float4(4f, 0f, 0f, 0f),
-                Float4(6f, 0f, 0f, 0f),
-                Float4(0f, 0f, 0f, 0f)
-            ))
+            scale(
+                Mat4(
+                    Float4(2f, 0f, 0f, 0f),
+                    Float4(4f, 0f, 0f, 0f),
+                    Float4(6f, 0f, 0f, 0f),
+                    Float4(0f, 0f, 0f, 0f)
+                )
+            )
         )
     }
 
@@ -179,7 +183,8 @@ class MatrixTest {
                     Float4(1f, 1f, 0f, 0f),
                     Float4(0f, 0f, 1f, 2f),
                     Float4(0f, -2f, 0f, 1f)
-                ))
+                )
+            )
         )
     }
 
@@ -200,7 +205,8 @@ class MatrixTest {
                     Float4(1f, 1f, 0f, 0f),
                     Float4(0f, 0f, 1f, 2f),
                     Float4(0f, 0f, 0f, 1f)
-                )).toString()
+                )
+            ).toString()
         )
     }
 

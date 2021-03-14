@@ -29,14 +29,17 @@ class LibGDXMatrixTest {
 
     @Test
     fun transpose() {
-        assertEquals(Matrix4(
-            floatArrayOf(
-                1f, 2f, 3f, 4f,
-                5f, 6f, 7f, 8f,
-                9f, 10f, 11f, 12f,
-                13f, 14f, 15f, 16f
-            )
-        ).tra(), transpose(Mat4.fromColumnMajor(1f, 2f, 3f, 4f, 5f, 6f, 7f, 8f, 9f, 10f, 11f, 12f, 13f, 14f, 15f, 16f)))
+        assertEquals(
+            Matrix4(
+                floatArrayOf(
+                    1f, 2f, 3f, 4f,
+                    5f, 6f, 7f, 8f,
+                    9f, 10f, 11f, 12f,
+                    13f, 14f, 15f, 16f
+                )
+            ).tra(),
+            transpose(Mat4.fromColumnMajor(1f, 2f, 3f, 4f, 5f, 6f, 7f, 8f, 9f, 10f, 11f, 12f, 13f, 14f, 15f, 16f))
+        )
     }
 
     @Test
@@ -81,25 +84,34 @@ class LibGDXMatrixTest {
 
     @Test
     fun multiplication() {
-        val expected = Matrix4(floatArrayOf(
-            1f, 2f, 3f, 4f,
-            5f, 6f, 7f, 8f,
-            9f, 10f, 11f, 12f,
-            13f, 14f, 15f, 16f)).mul(Matrix4(floatArrayOf(
-            1f, 2f, 3f, 4f,
-            5f, 6f, 7f, 8f,
-            9f, 10f, 11f, 12f,
-            13f, 14f, 15f, 16f
-        )))
+        val expected = Matrix4(
+            floatArrayOf(
+                1f, 2f, 3f, 4f,
+                5f, 6f, 7f, 8f,
+                9f, 10f, 11f, 12f,
+                13f, 14f, 15f, 16f
+            )
+        ).mul(
+            Matrix4(
+                floatArrayOf(
+                    1f, 2f, 3f, 4f,
+                    5f, 6f, 7f, 8f,
+                    9f, 10f, 11f, 12f,
+                    13f, 14f, 15f, 16f
+                )
+            )
+        )
         val result = Mat4.fromColumnMajor(
             1f, 2f, 3f, 4f,
             5f, 6f, 7f, 8f,
             9f, 10f, 11f, 12f,
-            13f, 14f, 15f, 16f) * Mat4.fromColumnMajor(
+            13f, 14f, 15f, 16f
+        ) * Mat4.fromColumnMajor(
             1f, 2f, 3f, 4f,
             5f, 6f, 7f, 8f,
             9f, 10f, 11f, 12f,
-            13f, 14f, 15f, 16f)
+            13f, 14f, 15f, 16f
+        )
         assertEquals(expected, result)
     }
 
