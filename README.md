@@ -1,4 +1,4 @@
-# kotlin-math
+# Kotlin-math
 Set of Kotlin APIs to make graphics math easier to write. These APIs are mostly
 modeled after GLSL (OpenGL Shading Language) to make porting code to and from
 shaders easier.
