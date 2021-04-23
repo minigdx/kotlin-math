@@ -121,6 +121,34 @@ class LibGDXMatrixTest {
         val result = translation(Float3(1f, 0f, 0f)) * translation(Float3(0f, 2f, 0f))
         assertEquals(expected, result)
     }
+
+    @Test
+    fun lookAtOrigin() {
+        val result = lookAt(
+            Float3(10f, 10f, 10f),
+            Float3(0f, 0f, 0f),
+            Float3(0f, 1f, 0f)
+        )
+
+        val expected = Matrix4().setToLookAt(Vector3(10f, 10f, 10f), Vector3(), Vector3.Y)
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun lookAtFromAnotherPoint() {
+        val result = lookAt(
+            Float3(10f, 10f, 10f),
+            Float3(20f, 20f, 20f),
+            Float3(0f, 1f, 0f)
+        )
+
+        val expected = Matrix4().setToLookAt(
+            Vector3(10f, 10f, 10f),
+            Vector3(20f, 20f, 20f),
+            Vector3.Y
+        )
+        assertEquals(expected, result)
+    }
 }
 
 fun assertEquals(expected: Matrix4, actual: Mat4) {
