@@ -1,5 +1,7 @@
 package com.curiouscreature.kotlin.math
 
+import com.badlogic.gdx.graphics.Camera
+import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.math.Matrix4
 import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.utils.GdxNativesLoader
@@ -119,6 +121,34 @@ class LibGDXMatrixTest {
     fun multiplication2() {
         val expected = Matrix4().translate(1f, 0f, 0f).mul(Matrix4().translate(0f, 2f, 0f))
         val result = translation(Float3(1f, 0f, 0f)) * translation(Float3(0f, 2f, 0f))
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun lookAtOrigin() {
+        val result = lookAt(
+            Float3(10f, 10f, 10f),
+            Float3(0f, 0f, 0f),
+            Float3(0f, 1f, 0f)
+        )
+
+        val expected = Matrix4().setToLookAt(Vector3(10f, 10f, 10f), Vector3(), Vector3.Y)
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun lookAtFromAnotherPoint() {
+        val result = lookAt(
+            Float3(10f, 10f, 10f),
+            Float3(20f, 20f, 20f),
+            Float3(0f, 1f, 0f)
+        )
+
+        val expected = Matrix4().setToLookAt(
+            Vector3(10f, 10f, 10f),
+            Vector3(20f, 20f, 20f),
+            Vector3.Y
+        )
         assertEquals(expected, result)
     }
 }
