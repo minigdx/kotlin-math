@@ -1,10 +1,14 @@
 name: Build on all platform
 # This workflow is triggered on pushes to the repository.
-on: [push]
+on: [ push ]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ macOS-latest, ubuntu-latest ]
+
+    runs-on: ${{matrix.os}}
 
     steps:
       - name: Checkout the repo
