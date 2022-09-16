@@ -1,0 +1,12 @@
+[versions]
+libgdx = "1.9.9"
+assertJ = "3.11.1"
+minigdx-mpp = "1.2.0"
+
+[libraries]
+libgdx-backend = { module = "com.badlogicgames.gdx:gdx-backend-lwjgl", version.ref = "libgdx"}
+libgdx-platform = { module = "com.badlogicgames.gdx:gdx-platform", version.ref = "libgdx"}
+assertJ = { module = "org.assertj:assertj-core", version.ref = "assertJ"}
+
+[plugins]
+minigdx-mpp = { id = "com.github.minigdx.gradle.plugin.developer.mpp", version.ref = "minigdx-mpp" }
