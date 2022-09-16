@@ -1,5 +1,6 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id("com.github.minigdx.gradle.plugin.developer.mpp") version "1.1.0-alpha0"
+    alias(libs.plugins.minigdx.mpp)
 }
 
 repositories {
@@ -7,9 +8,9 @@ repositories {
 }
 
 dependencies {
-    this.jvmTestImplementation("com.badlogicgames.gdx:gdx-backend-lwjgl:1.9.9")
-    this.jvmTestImplementation("com.badlogicgames.gdx:gdx-platform:1.9.9:natives-desktop")
-    this.jvmTestImplementation("org.assertj:assertj-core:3.11.1")
+    this.jvmTestImplementation(libs.libgdx.backend)
+    this.jvmTestImplementation(variantOf(libs.libgdx.platform) { classifier("natives-desktop") })
+    this.jvmTestImplementation(libs.assertJ)
 }
 
 minigdxDeveloper {
