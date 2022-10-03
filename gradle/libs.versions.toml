@@ -1,7 +1,7 @@
 [versions]
 libgdx = "1.9.9"
 assertJ = "3.11.1"
-minigdx-mpp = "1.2.0"
+minigdx-mpp = "1.2.2"
 
 [libraries]
 libgdx-backend = { module = "com.badlogicgames.gdx:gdx-backend-lwjgl", version.ref = "libgdx"}
